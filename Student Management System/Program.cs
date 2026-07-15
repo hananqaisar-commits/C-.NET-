@@ -14,14 +14,19 @@ namespace Name
             while (true)
             {
                 format.menu();
-                int choice = int.Parse(Console.ReadLine()!);
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Invalid input.");
+                    continue;
+                }
                 switch (choice)
                 {
                     case 1:
-                        Student student = new Student();
-                        student.AddStudent();
-                        students_list.Add(student);
-                        break;
+                        {
+                            Student student = studentOperations.AddStudent();
+                            students_list.Add(student);
+                            break;
+                        }
                     case 2:
                         format.Header("Student List");
                         Console.WriteLine("\n");

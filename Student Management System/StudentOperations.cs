@@ -15,7 +15,18 @@ namespace Name
             Random random = new Random();
             return $"{prefix + (++uniqueNumber)}";
         }
+        public Student AddStudent()
+        {
+            Console.Write("Enter name: ");
+            string name = Console.ReadLine()!;
 
+            string id = genereateID();
+
+            Console.Write("Enter marks: ");
+            string marks = Console.ReadLine()!;
+
+            return new Student(name, id, marks);
+        }
         public void SaveToFile(List<Student> students)
         {
             List<string> lines = new List<string>();

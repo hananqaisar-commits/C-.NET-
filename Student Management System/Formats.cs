@@ -46,8 +46,5 @@ namespace Names
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
-
-
-
     }
 }
