@@ -1,0 +1,15 @@
+/home/hanan/Desktop/C#(.NET)/Student Management System/bin/Debug/net8.0/Student Management System
+/home/hanan/Desktop/C#(.NET)/Student Management System/bin/Debug/net8.0/Student Management System.deps.json
+/home/hanan/Desktop/C#(.NET)/Student Management System/bin/Debug/net8.0/Student Management System.runtimeconfig.json
+/home/hanan/Desktop/C#(.NET)/Student Management System/bin/Debug/net8.0/Student Management System.dll
+/home/hanan/Desktop/C#(.NET)/Student Management System/bin/Debug/net8.0/Student Management System.pdb
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.GeneratedMSBuildEditorConfig.editorconfig
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.AssemblyInfoInputs.cache
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.AssemblyInfo.cs
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.csproj.CoreCompileInputs.cache
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.sourcelink.json
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.dll
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/refint/Student Management System.dll
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.pdb
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/Student Management System.genruntimeconfig.cache
+/home/hanan/Desktop/C#(.NET)/Student Management System/obj/Debug/net8.0/ref/Student Management System.dll
