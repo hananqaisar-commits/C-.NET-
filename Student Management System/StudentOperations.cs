@@ -7,9 +7,10 @@ namespace Name
 
     public class StudentOperations
     {
-        Formats format = new Formats();
-        static int uniqueNumber = 1000;
-        public String genereateID()
+        Formats format = new Formats();//format is obj of Formats class
+        static int uniqueNumber = 1000;//unique number assigned to prefix and auto_incremented
+        List<Student> students = new List<Student>();//list of students to save data read from file
+        public String genereateID()//to generate auto incremented id for each student
         {
             String prefix = "STU";
             Random random = new Random();
@@ -30,19 +31,22 @@ namespace Name
         public void SaveToFile(List<Student> students)
         {
             List<string> lines = new List<string>();
-
             foreach (var student in students)//var decide the data type at runtime
             {
                 lines.Add($"{student.ID},{student.Name},{student.Marks}");
             }
-
             if (!File.Exists("students.txt"))
             {
-                Console.WriteLine("File not found. Creating new file...");
                 File.Create("students.txt").Close();
+                Console.WriteLine("File not found. Creating new file...");
             }
-            File.AppendAllLines("students.txt", lines);
-
+            using (StreamWriter writer = new StreamWriter("students.txt"))
+            {
+                foreach (var line in lines)
+                {
+                    writer.WriteLine(line);
+                }
+            }
             Console.WriteLine("Students saved to file successfully.");
         }
         public List<Student> ReadFile()
@@ -55,21 +59,32 @@ namespace Name
                 return new List<Student>();
             }
 
-            var students = File.ReadAllLines("students.txt")//var decide the data type at runtime and at last it will be returened
-                .Where(line => !string.IsNullOrWhiteSpace(line))//if line is not empty then go to next step
-                .Select(line =>
-                {
-                    var parts = line.Split(',');
+            using (StreamReader reader = new StreamReader("students.txt"))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {                                          //var decide the data type at runtime and at last it will be returened
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }//if line is not empty then go to next step
+                    string[] parts = line.Split(',');
+                    if (parts.Length != 3)
+                    {
+                        Console.WriteLine($"Invalid line format: {line}");
+                        continue;
+                    }
 
-                    return new Student(
-                        parts[1],//name
-                        parts[0],//id
-                        parts[2]//marks
-                    );
-                })
-                .ToList();
+                    string id = parts[0];
+                    string name = parts[1];
+                    string marks = parts[2];
 
-            return students;
+                    Student student = new Student(name, id, marks);
+
+                    students.Add(student);
+                }
+                return students;
+            }
         }
         public void classStatistics(List<Student> students)
         {

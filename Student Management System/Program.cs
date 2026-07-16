@@ -24,7 +24,9 @@ namespace Name
                     case 1:
                         {
                             Student student = studentOperations.AddStudent();
+
                             students_list.Add(student);
+                            studentOperations.SaveToFile(students_list);
                             break;
                         }
                     case 2:
