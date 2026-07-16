@@ -28,6 +28,7 @@ namespace Name
                             students_list.Add(student);// Add the new student to the list of students
                             studentOperations.SaveToFile(students_list);// Save the updated list of students to the file
                             Console.WriteLine("Student added successfully.");
+                            format.continuePrompt();
                             break;
                         }
                     case 2:
@@ -39,17 +40,19 @@ namespace Name
                         {
                             Console.WriteLine(StudentData.ToString());// Print the details of each student using the ToString() method of the Student class
                         }
-
+                        format.continuePrompt();
                         break;
                     case 3:
                         format.Header("Class Statistics");
                         studentOperations.classStatistics(students_list);// Call the classStatistics method to display statistics about the class based on the list of students
+                        format.continuePrompt();
                         break;
                     case 4:
                         format.Exit();// Call the Exit method to exit the program
                         return;
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");// Print an error message for invalid menu choices
+                        format.continuePrompt();
                         break;
                 }
             }
