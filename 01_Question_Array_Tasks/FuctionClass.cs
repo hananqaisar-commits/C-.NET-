@@ -44,7 +44,6 @@ public class MyPractise
             {
                 min = n;
             }
-
         }
         Console.WriteLine($"Min element is: {min}");
     }
