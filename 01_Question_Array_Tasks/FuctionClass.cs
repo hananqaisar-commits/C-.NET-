@@ -1,7 +1,7 @@
 
 public class MyPractise
 {
-    public void printArray(int[] array)
+    public void printArray(int[] array)// It will loop through the array and print each element along with its index.
     {
         int count = 0;
         foreach (int n in array)
@@ -15,7 +15,7 @@ public class MyPractise
 
         float average = 0;
         int count = 0;
-        foreach (int n in array)
+        foreach (int n in array)// It will loop through the array and calculate the sum of all elements and count the number of elements in the array.
         {
             average += n;
             count++;
@@ -35,7 +35,7 @@ public class MyPractise
         }
         Console.WriteLine($"Max element is: {max}");
     }
-    public void arrayMin(int[] array)
+    public void arrayMin(int[] array)// It will loop through the array and find the minimum element in the array.
     {
         int min = int.MaxValue;
         foreach (int n in array)
@@ -49,7 +49,7 @@ public class MyPractise
         Console.WriteLine($"Min element is: {min}");
     }
 
-    public void array_2ndLargest(int[] array)
+    public void array_2ndLargest(int[] array)// It will loop through the array and find the second largest element in the array.
     {
         int max = int.MinValue;
         int secondMax = int.MinValue;
@@ -68,7 +68,7 @@ public class MyPractise
         }
         Console.WriteLine($"Second Max element is: {secondMax}");
     }
-    public void arraySecondMin(int[] array)
+    public void arraySecondMin(int[] array)// It will loop through the array and find the second minimum element in the array.
     {
         int min = int.MaxValue;
         int secondMinimuim = int.MaxValue;
