@@ -1,8 +1,7 @@
 
-
 public class MyPractise
 {
-    public void print_array(int[] array)
+    public void printArray(int[] array)
     {
         int count = 0;
         foreach (int n in array)
@@ -11,7 +10,7 @@ public class MyPractise
             ++count;
         }
     }
-    public void print_arrayAverage(int[] array)
+    public void printArrayAvg(int[] array)
     {
 
         float average = 0;
@@ -23,7 +22,7 @@ public class MyPractise
         }
         Console.WriteLine($"Average is: {(float)average / count}");
     }
-    static void array_max(int[] array)
+    public void arrayMax(int[] array)
     {
         int max = int.MinValue;
         foreach (int n in array)
@@ -36,7 +35,7 @@ public class MyPractise
         }
         Console.WriteLine($"Max element is: {max}");
     }
-    static void array_min(int[] array)
+    public void arrayMin(int[] array)
     {
         int min = int.MaxValue;
         foreach (int n in array)
@@ -50,43 +49,43 @@ public class MyPractise
         Console.WriteLine($"Min element is: {min}");
     }
 
-    static void array_2ndLargest(int[] array)
+    public void array_2ndLargest(int[] array)
     {
         int max = int.MinValue;
-        int second_max = int.MinValue;
+        int secondMax = int.MinValue;
         foreach (int n in array)
         {
             if (n > max)
             {
-                second_max = max;
+                secondMax = max;
                 max = n;
             }
-            else if (n > second_max && n != max)
+            else if (n > secondMax && n != max)
             {
-                second_max = n;
+                secondMax = n;
             }
 
         }
-        Console.WriteLine($"Second Max element is: {second_max}");
+        Console.WriteLine($"Second Max element is: {secondMax}");
     }
-    static void array_2ndMinimuim(int[] array)
+    public void arraySecondMin(int[] array)
     {
         int min = int.MaxValue;
-        int second_min = int.MaxValue;
+        int secondMinimuim = int.MaxValue;
         foreach (int n in array)
         {
             if (n < min)
             {
-                second_min = min;
+                secondMinimuim = min;
                 min = n;
             }
-            else if (n < second_min && n != min)
+            else if (n < secondMinimuim && n != min)
             {
-                second_min = n;
+                secondMinimuim = n;
             }
 
         }
-        Console.WriteLine($"Second Min element is: {second_min}");
+        Console.WriteLine($"Second Min element is: {secondMinimuim}");
     }
 }
 
