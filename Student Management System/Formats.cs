@@ -5,7 +5,7 @@ namespace Names
     public class Formats
     {
 
-        public void Header(String name)
+        public void Header(String name)// It will print the header for the given name with proper formatting.
         {
             Console.WriteLine("\n============ " + name + " ============");
         }
@@ -18,7 +18,7 @@ namespace Names
             Console.WriteLine($"{loadingContext}...");
         }
 
-        public void Exit()
+        public void Exit()// It will print the exit message when the user chooses to exit the program.
         {
             Console.WriteLine("\nThank you for using");
             Console.WriteLine("Student Management System");
@@ -30,7 +30,7 @@ namespace Names
         {
             Console.WriteLine($"{"ID",-8} {"Name",-20} {"Marks",-6}");
         }
-        public void menu()
+        public void menu()// It will print the menu options for the user to choose from it.
         {
             Console.WriteLine("\n1. Add Student");
             Console.WriteLine("2. View Students");
@@ -41,7 +41,7 @@ namespace Names
 
         }
 
-        public void continuePrompt()
+        public void continuePrompt()// It will prompt the user to press any key to continue after performing an action.
         {
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
