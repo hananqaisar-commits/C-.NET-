@@ -10,6 +10,11 @@ namespace BookName
             this.author = author;
 
         }
+        public Book(string author)// overloaded constructor to handle the case when no title is provided
+        {
+            this.author = author;
+            base.title = "Unknown";
+        }
 
         public override string GetDetails()
         {
@@ -20,6 +25,11 @@ namespace BookName
         {
             Console.WriteLine($"Don't forget to return in 14 days.");
 
+        }
+
+        public override string ToString()
+        {
+            return $"Title: {title} | Author: {author} | Availability: {(IsAvailable ? "yes" : "No")}\n";
         }
     }
 }
