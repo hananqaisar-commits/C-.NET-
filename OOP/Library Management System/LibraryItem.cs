@@ -10,6 +10,11 @@ namespace LibraryItemName
             this.title = title;
             IsAvailable = true;
         }
+        public LibraryItem()// overloaded constructor to handle the case when no title is provided
+        {
+            title = "Unknown";
+            IsAvailable = true;
+        }
 
         public virtual string GetDetails()
         {
@@ -25,6 +30,5 @@ namespace LibraryItemName
         {
             Console.WriteLine($"{title} Availability: {(IsAvailable ? "yes" : "No")}");
         }
-
     }
 }
