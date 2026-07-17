@@ -1,7 +1,7 @@
 using LibraryItemName;
 namespace DVDName
 {
-    public class DVD : LibraryItemName.LibraryItem
+    public class DVD : LibraryItem
     {
         public float duration { get; set; }
         public DVD(string title, int min) : base(title)
@@ -17,6 +17,13 @@ namespace DVDName
         {
             base.CheckOut();
         }
-
+        public override string GetDetails()
+        {
+            return $"Title: {title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n";
+        }
+        public override string ToString()
+        {
+            return $"Title: {title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n";
+        }
     }
 }
