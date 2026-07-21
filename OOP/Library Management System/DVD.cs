@@ -1,25 +1,34 @@
-using LibraryItemName;
+
+using ILibraryItemName;
+using ItemsName;
 namespace DVDName
 {
-    public class DVD : LibraryItem
+    public class DVD : Items, ILibraryItem
     {
         public float duration { get; set; }
-        public DVD(string title, int min) : base(title)
+        public DVD(string title, int min, string SrNo) : base(title, SrNo)
         {
             this.duration = (float)min / 60;
         }
-        public override void CheckOut()
+
+        public void DisplayInfo()
         {
-            Console.WriteLine($"DVD: {title} , {duration} hours");
+            Console.WriteLine($"Title: {title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n");
+        }
+        public void IssueItem()
+        {
+            if (base.IsAvailable)
+            {
+                Console.WriteLine($"{title} DVD is issued");
+                base.IsAvailable = false;
+            }
 
         }
-        public void checkOut()
+        public void ReturnItem()
         {
-            base.CheckOut();
-        }
-        public override string GetDetails()
-        {
-            return $"Title: {title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n";
+            Console.WriteLine($"{title} DVD is returned");
+            base.IsAvailable = true;
+
         }
         public override string ToString()
         {

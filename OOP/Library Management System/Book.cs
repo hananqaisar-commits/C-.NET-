@@ -1,35 +1,39 @@
-using LibraryItemName;
+using ILibraryItemName;
+using ItemsName;
 namespace BookName
 {
-    public class Book : LibraryItem
+    public class Book : Items, ILibraryItem
     {
         public string author { get; set; }
 
-        public Book(string title, string author) : base(title)
+        public Book(string title, string author, string SrNo) : base(title, SrNo)
         {
             this.author = author;
-
         }
-        public Book(string author)// overloaded constructor to handle the case when no title is provided
+        public Book() : base("Unknown", "Unknown")//overloaded constructor
         {
-            this.author = author;
-            base.title = "Unknown";
-        }
 
-        public override string GetDetails()
+        }
+        public void IssueItem()
         {
-            return $"Title: {title} | Author: {author} | Availability: {(IsAvailable ? "yes" : "No")}\n";
+            if (base.IsAvailable)
+            {
+                Console.WriteLine($"{title} book by {author} is issued");
+                base.IsAvailable = false;
+            }
+            else
+            {
+                Console.WriteLine($"Temporary message: {title} book by {author} is not available for issue.");
+            }
         }
-
-        public override void CheckOut()
+        public void ReturnItem()
         {
-            Console.WriteLine($"Don't forget to return in 14 days.");
-
+            Console.WriteLine($"{title} book by {author} is returned.");
+            base.IsAvailable = true;
         }
-
         public override string ToString()
         {
-            return $"Title: {title} | Author: {author} | Availability: {(IsAvailable ? "yes" : "No")}\n";
+            return $"Title: {title} | Author: {author} \n";
         }
     }
 }
