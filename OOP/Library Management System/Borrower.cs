@@ -20,12 +20,12 @@ namespace BorrowerName
         public void IssueItem(ILibraryItem item)
         {
             BorrowedItem = item;
-            item.IssueItem();
+            // BorrowedItem.IssueItem();
         }
         public void ReturnItem(ILibraryItem item)
         {
             BorrowedItem = item;
-            item.ReturnItem();
+            // BorrowedItem.ReturnItem
         }
         public override string ToString()
         {

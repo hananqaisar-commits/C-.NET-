@@ -1,6 +1,7 @@
 
 using ILibraryItemName;
 using ItemsName;
+using BorrowerName;
 namespace DVDName
 {
     public class DVD : Items, ILibraryItem
@@ -15,18 +16,18 @@ namespace DVDName
         {
             Console.WriteLine($"Title: {title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n");
         }
-        public void IssueItem()
+        public void IssueItem(Borrower name)
         {
             if (base.IsAvailable)
             {
-                Console.WriteLine($"{title} DVD is issued");
+                Console.WriteLine($"{title} DVD is issued to {name.name}");
                 base.IsAvailable = false;
             }
 
         }
-        public void ReturnItem()
+        public void ReturnItem(Borrower user)
         {
-            Console.WriteLine($"{title} DVD is returned");
+            Console.WriteLine($"{title} DVD is returned by {user.name}");
             base.IsAvailable = true;
 
         }

@@ -1,5 +1,6 @@
 using ILibraryItemName;
 using ItemsName;
+using BorrowerName;
 namespace BookName
 {
     public class Book : Items, ILibraryItem
@@ -14,11 +15,11 @@ namespace BookName
         {
 
         }
-        public void IssueItem()
+        public void IssueItem(Borrower user)
         {
             if (base.IsAvailable)
             {
-                Console.WriteLine($"{title} book by {author} is issued");
+                Console.WriteLine($"{title} book by {author} is issued to {user.name}");
                 base.IsAvailable = false;
             }
             else
@@ -26,9 +27,9 @@ namespace BookName
                 Console.WriteLine($"Temporary message: {title} book by {author} is not available for issue.");
             }
         }
-        public void ReturnItem()
+        public void ReturnItem(Borrower user)
         {
-            Console.WriteLine($"{title} book by {author} is returned.");
+            Console.WriteLine($"{title} book by {author} is returned by {user.name}.");
             base.IsAvailable = true;
         }
         public override string ToString()

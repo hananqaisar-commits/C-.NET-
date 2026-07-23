@@ -1,6 +1,7 @@
 using System;
 using ItemsName;
 using ILibraryItemName;
+using BorrowerName;
 namespace MagzinesItem
 {
     public class Magzines : Items, ILibraryItem
@@ -12,11 +13,11 @@ namespace MagzinesItem
             this.Pages = page;
         }
 
-        public void IssueItem()
+        public void IssueItem(Borrower user)
         {
             if (base.IsAvailable)
             {
-                Console.WriteLine($"{title} Magzine is issued");
+                Console.WriteLine($"{title} Magzine is issued to {user.name}");
                 base.IsAvailable = false;
             }
             else
@@ -24,10 +25,14 @@ namespace MagzinesItem
                 Console.WriteLine($"Temporary Message: {title} is temporary not availabale");
             }
         }
-        public void ReturnItem()
+        public void ReturnItem(Borrower user)
         {
             base.IsAvailable = true;
-            Console.WriteLine($"{title} with {SrNo} is returned");
+            Console.WriteLine($"{title} with {SrNo} is returned by {user.name}");
+        }
+        public override string ToString()
+        {
+            return $"{title} | {SrNo} | pages: {Pages}\n";
         }
     }
 }
