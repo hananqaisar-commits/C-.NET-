@@ -38,68 +38,55 @@ namespace Name
                 lines.Add($"{student.ID},{student.Name},{student.Marks}");
             }
 
-            try
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
-                using (StreamWriter writer = new StreamWriter(filePath))
+                foreach (var line in lines)
                 {
-                    foreach (var line in lines)
-                    {
-                        writer.WriteLine(line);
-                    }
+                    writer.WriteLine(line);
                 }
-                Console.WriteLine("Students saved to file successfully.");
             }
-            catch (FileNotFoundException exp)
-            {
-                Console.WriteLine($"Error writing file: {exp.Message}");
-            }
+            Console.WriteLine("Students saved to file successfully.");
+
         }
 
         public List<Student> ReadFile()
         {
 
-            if (!File.Exists("students.txt"))
+            if (!File.Exists(filePath))
             {
                 Console.WriteLine("No students.txt found. No students exist.");
                 return new List<Student>();
             }
 
-            try
-            {
-                string content = File.ReadAllText(filePath);
-                if (content == "")
-                {
-                    Console.WriteLine("No student data found.");
-                    return new List<Student>();
-                }
 
-                using (StreamReader reader = new StreamReader(filePath))
+            string content = File.ReadAllText(filePath);
+            if (content == "")
+            {
+                Console.WriteLine("No student data found.");
+                return new List<Student>();
+            }
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    string? line;
-                    while ((line = reader.ReadLine()) != null)
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+
+                    string[] parts = line.Split(',');
+                    if (parts.Length != 3)
                     {
-                        if (string.IsNullOrWhiteSpace(line)) continue;
-
-                        string[] parts = line.Split(',');
-                        if (parts.Length != 3)
-                        {
-                            Console.WriteLine($"Invalid line format: {line}");
-                            continue;
-                        }
-
-                        string id = parts[0];
-                        string name = parts[1];
-                        string marks = parts[2];
-
-                        students.Add(new Student(name, id, marks));
+                        Console.WriteLine($"Invalid line format: {line}");
+                        continue;
                     }
+
+                    string id = parts[0];
+                    string name = parts[1];
+                    string marks = parts[2];
+
+                    students.Add(new Student(name, id, marks));
                 }
             }
-            catch (IOException exp)
-            {
-                Console.WriteLine($"Error reading file: {exp.Message}");
-            }
-
             return students;
         }
         public void classStatistics(List<Student> students)
