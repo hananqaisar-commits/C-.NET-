@@ -1,40 +1,15 @@
 # Build files
 bin/
 obj/
+son
 
-# Visual Studio
-.vs/
+# IDE
+.vscode/
+.idea/
+
+# Generated files
 *.user
 *.suo
 
-# JetBrains
-.idea/
-*.iml
-
-# VS Code
-.vscode/
-
-# C# generated files
-*.dll
-*.exe
-*.pdb
-
-# Logs
-*.log
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Data files
-*.txt
-*.csv
-*.json
-
-# Claude / AI tools
-.claude/
-.claude.json
-
-# Temporary files
-*.tmp
-*.cache
+# Data files (optional)
+Items.txt
