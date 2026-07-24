@@ -7,6 +7,7 @@ namespace Name
 
     public class StudentOperations
     {
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "students.txt");//it will detect the absolute filePath
         Formats format = new Formats();//format is obj of Formats class
         static int uniqueNumber = 1000;//unique number assigned to prefix and auto_incremented
         List<Student> students = new List<Student>();//list of students to save data read from file
@@ -31,60 +32,75 @@ namespace Name
         public void SaveToFile(List<Student> students)
         {
             List<string> lines = new List<string>();
-            foreach (var student in students)//var decide the data type at runtime
+
+            foreach (var student in students)
             {
                 lines.Add($"{student.ID},{student.Name},{student.Marks}");
             }
-            if (!File.Exists("students.txt"))
+
+            try
             {
-                File.Create("students.txt").Close();
-                Console.WriteLine("File not found. Creating new file...");
-            }
-            using (StreamWriter writer = new StreamWriter("students.txt"))
-            {
-                foreach (var line in lines)
+                using (StreamWriter writer = new StreamWriter(filePath))
                 {
-                    writer.WriteLine(line);
+                    foreach (var line in lines)
+                    {
+                        writer.WriteLine(line);
+                    }
                 }
+                Console.WriteLine("Students saved to file successfully.");
             }
-            Console.WriteLine("Students saved to file successfully.");
+            catch (FileNotFoundException exp)
+            {
+                Console.WriteLine($"Error writing file: {exp.Message}");
+            }
         }
+
         public List<Student> ReadFile()
         {
-            string content = File.ReadAllText("students.txt");
 
-            if (content == "")
+            if (!File.Exists("students.txt"))
             {
-                Console.WriteLine("No students found.");
+                Console.WriteLine("No students.txt found. No students exist.");
                 return new List<Student>();
             }
 
-            using (StreamReader reader = new StreamReader("students.txt"))
+            try
             {
-                string? line;
-                while ((line = reader.ReadLine()) != null)
-                {                                          //var decide the data type at runtime and at last it will be returened
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        continue;
-                    }//if line is not empty then go to next step
-                    string[] parts = line.Split(',');
-                    if (parts.Length != 3)
-                    {
-                        Console.WriteLine($"Invalid line format: {line}");
-                        continue;
-                    }
-
-                    string id = parts[0];
-                    string name = parts[1];
-                    string marks = parts[2];
-
-                    Student student = new Student(name, id, marks);
-
-                    students.Add(student);
+                string content = File.ReadAllText(filePath);
+                if (content == "")
+                {
+                    Console.WriteLine("No student data found.");
+                    return new List<Student>();
                 }
-                return students;
+
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string? line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if (string.IsNullOrWhiteSpace(line)) continue;
+
+                        string[] parts = line.Split(',');
+                        if (parts.Length != 3)
+                        {
+                            Console.WriteLine($"Invalid line format: {line}");
+                            continue;
+                        }
+
+                        string id = parts[0];
+                        string name = parts[1];
+                        string marks = parts[2];
+
+                        students.Add(new Student(name, id, marks));
+                    }
+                }
             }
+            catch (IOException exp)
+            {
+                Console.WriteLine($"Error reading file: {exp.Message}");
+            }
+
+            return students;
         }
         public void classStatistics(List<Student> students)
         {
@@ -95,8 +111,8 @@ namespace Name
                 return;
             }
 
-            int highestMarks = int.MinValue;
-            int lowestMarks = int.MaxValue;
+            double highestMarks = double.MinValue;
+            double lowestMarks = double.MaxValue;
             double totalMarks = 0;
 
             foreach (var student in students)
@@ -112,9 +128,9 @@ namespace Name
 
             double averageMarks = totalMarks / students.Count;
 
-            Console.WriteLine($"Highest Marks : {highestMarks}");
-            Console.WriteLine($"Lowest Marks  : {lowestMarks}");
-            Console.WriteLine($"Average Marks : {averageMarks}");
+            Console.WriteLine($"Highest Marks : {highestMarks:F1}");
+            Console.WriteLine($"Lowest Marks  : {lowestMarks:F1}");
+            Console.WriteLine($"Average Marks : {averageMarks:F2}");
         }
     }
 }

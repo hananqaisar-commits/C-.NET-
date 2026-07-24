@@ -4,11 +4,12 @@ public class Student
     public string ID { get; set; }
     public string Marks { get; set; }
 
-    public Student()//defult constructor
+    public Student()//default constructor
     {
-
+        this.Name = "Unknown";
+        this.ID = "Unknown";
+        this.Marks = "0";
     }
-
     public Student(string name, string id, string marks)//parameterized constructor
     {
         Name = name;

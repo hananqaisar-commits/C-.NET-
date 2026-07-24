@@ -33,9 +33,10 @@ namespace Name
                         }
                     case 2:
                         format.Header("Student List");
-                        Console.WriteLine("\n");
                         Console.WriteLine($"{"ID",-8} {"Name",-20} {"Marks",-6}");// Print the header for the student list with proper formatting
                         format.HeaderLine();// Print a line to separate the header from the student data
+                        students_list.Clear();// it prevent ambiguity of data.
+                        students_list = studentOperations.ReadFile();// it will assign returned data to student_list
                         foreach (var StudentData in students_list)// Loop through the list of students and print their details
                         {
                             Console.WriteLine(StudentData.ToString());// Print the details of each student using the ToString() method of the Student class

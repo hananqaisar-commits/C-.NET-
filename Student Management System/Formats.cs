@@ -24,8 +24,6 @@ namespace Names
             Console.WriteLine("Student Management System");
             Console.WriteLine("Good Bye!");
         }
-
-
         public void HeaderTexts()
         {
             Console.WriteLine($"{"ID",-8} {"Name",-20} {"Marks",-6}");
