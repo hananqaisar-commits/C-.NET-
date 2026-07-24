@@ -1,14 +1,16 @@
-using ILibraryItemName;
-namespace LibraryItemName
+using LibraryManagementSystem.Interfaces;
+
+namespace LibraryManagementSystem.Services
 {
     public class LibraryService
     {
-        List<ILibraryItem> items = new List<ILibraryItem>();
+        private List<ILibraryItem> items = new List<ILibraryItem>();
 
         public void AddItem(ILibraryItem item)
         {
             items.Add(item);
         }
+
         public void RemoveItem(ILibraryItem item)
         {
             items.Remove(item);

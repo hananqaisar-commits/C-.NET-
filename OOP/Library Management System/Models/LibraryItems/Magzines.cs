@@ -1,8 +1,7 @@
-using System;
-using ItemsName;
-using ILibraryItemName;
-using BorrowerName;
-namespace MagzinesItem
+using LibraryManagementSystem.Interfaces;
+using LibraryManagementSystem.Models;
+
+namespace LibraryManagementSystem.Models.LibraryItems
 {
     public class Magzines : Items, ILibraryItem
     {
@@ -22,14 +21,16 @@ namespace MagzinesItem
             }
             else
             {
-                Console.WriteLine($"Temporary Message: {title} is temporary not availabale");
+                Console.WriteLine($"Temporary Message: {title} is temporary not available");
             }
         }
+
         public void ReturnItem(Borrower user)
         {
             base.IsAvailable = true;
             Console.WriteLine($"{title} with {SrNo} is returned by {user.name}");
         }
+
         public override string ToString()
         {
             return $"{title} | {SrNo} | pages: {Pages}\n";

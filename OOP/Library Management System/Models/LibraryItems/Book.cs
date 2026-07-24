@@ -1,7 +1,7 @@
-using ILibraryItemName;
-using ItemsName;
-using BorrowerName;
-namespace BookName
+using LibraryManagementSystem.Interfaces;
+using LibraryManagementSystem.Models;
+
+namespace LibraryManagementSystem.Models.LibraryItems
 {
     public class Book : Items, ILibraryItem
     {
@@ -11,10 +11,12 @@ namespace BookName
         {
             this.author = author;
         }
-        public Book() : base("Unknown", "Unknown")//overloaded constructor
-        {
 
+        public Book() : base("Unknown", "Unknown")
+        {
+            this.author = "Unknown";
         }
+
         public void IssueItem(Borrower user)
         {
             if (base.IsAvailable)
@@ -27,14 +29,16 @@ namespace BookName
                 Console.WriteLine($"Temporary message: {title} book by {author} is not available for issue.");
             }
         }
+
         public void ReturnItem(Borrower user)
         {
             Console.WriteLine($"{title} book by {author} is returned by {user.name}.");
             base.IsAvailable = true;
         }
+
         public override string ToString()
         {
-            return $"Title: {title} | Author: {author} \n";
+            return $"Title: {title} | Author: {author}\n";
         }
     }
 }

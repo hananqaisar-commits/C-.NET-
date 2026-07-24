@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using BookName;
-using DVDName;
-using BorrowerName;
-using ILibraryItemName;
-using LibraryItemName;
-using MagzinesItem;
-using ItemsName;
+using System;
+using LibraryManagementSystem.Interfaces;
+using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Models.LibraryItems;
+using LibraryManagementSystem.Services;
+
 namespace Name
 {
     public class Program
@@ -15,36 +11,66 @@ namespace Name
         public static void Main(string[] args)
         {
 
+            Header("1) INHERITANCE DEMO");
+            Console.WriteLine("\n Items is Parent class and their properties are inherited by Book, DVD, Magzines:\n");
+            Console.WriteLine($"  - Book inherits: title, SrNo, IsAvailable from base 'Items' class");
+            Console.WriteLine($"  - DVD inherits: title, SrNo, IsAvailable from base 'Items' class");
+            Console.WriteLine($"  - Magzines inherits: title, SrNo, IsAvailable from base 'Items' class");
+
+
+            Header("2) INTERFACE DEMO");
+            Console.WriteLine("\nAll classes implement ILibraryItem interface:\n");
+            ILibraryItem book = new Book("Automate boring stuff with python", "Hanan Qaisar", "1234");
+            Console.WriteLine($"  - Book implements ILibraryItem (now it has IssueItem & ReturnItem methods)");
+            ILibraryItem dvd = new DVD("GTA IV", 690, "4573");
+            Console.WriteLine($"  - DVD implements ILibraryItem (now it has also IssueItem & ReturnItem methods)");
+            ILibraryItem magzine = new Magzines(32, "National Geographic", "7890");
+            Console.WriteLine($"  - Magzines implements ILibraryItem (now it has IssueItem & ReturnItem methods)");
+
+            Header("POLYMORPHISM DEMO");
+            Console.WriteLine("\n Same method call behaves differently for each class:\n");
+
+            // Create objects again for polymorphism demo
+            ILibraryItem bookPly = new Book("C# Basics", "John Doe", "B001");//Ply mean polymorphism
+            ILibraryItem dvdPly = new DVD("Python Course", 120, "D001");
+            ILibraryItem magPly = new Magzines(45, "Tech Today", "M001");
+
+            // Polymorphic array - treating different classes as same interface type
+            ILibraryItem[] allItems = { bookPly, dvdPly, magPly };//added all objects in array of type ILibraryItem
+
             Borrower user = new Borrower("Hanan Qaisar");
-            LibraryService service = new LibraryService();
-            ILibraryItem item = new Book("Automate boring stuff with python", "Hanan Qaisar", "1234");
-            ILibraryItem item1 = new DVD("GTA IV", 690, "4573");// 690 is min it will convert in hours
-            ILibraryItem item2 = new Magzines(32, "National Geographic", "7890");
 
-            // Concepts used in this program are: Inheritance, Polymorphism, Encapsulation, and Ternary Operator.
-            // Inheritance: Book and DVD classes inherit from the LibraryItem class, allowing them to share common properties and methods.
-            // Polymorphism: The GetDetails and CheckOut methods are overridden in the Book and
-            // DVD classes, allowing them to provide their own implementations while still being treated as LibraryItem objects.
-            // Encapsulation: The IsAvailable property is encapsulated within the LibraryItem class, providing controlled access to the availability status of library items.
-            Console.Write("-------------------Library Management System-------------------\n");
+            // Same method call - different output for each type
+            Console.WriteLine("Same method call on whole array but, different output's show's polymorphism\n\n");
+            foreach (ILibraryItem libItem in allItems)// intwerface used
+            {
+                libItem.IssueItem(user);
+            }
 
-            //Now real object of classes are created and methods are called to demonstrate the functionality of the library management system.
-            // The output will show the details of the library items, their availability status, and the actions performed by the borrower.
-            Console.Write(item.ToString());
-            item.IssueItem(user);
-            Console.Write(item1.ToString());
-            item1.IssueItem(user);
-            Console.Write(item2.ToString());
-            item2.IssueItem(user);
-            Console.Write("-------------------After Issuing the items-------------------\n");
-            // Returning the items
-            Console.Write(item.ToString());
-            item.ReturnItem(user);
-            Console.Write(item1.ToString());
-            item1.ReturnItem(user);
-            Console.Write(item2.ToString());
-            item2.ReturnItem(user);
 
+            Header("DEPENDENCY INJECTION DEMO");
+            Console.WriteLine("\n LibraryService accepts any ILibraryItem:");
+
+            var service = new LibraryService();//var decide the data type at runtime
+
+            // Injecting Book
+            service.AddItem(new Book("Clean Code", "Robert Martin", "B002"));
+            Console.WriteLine($" - Added Book to LibraryService (injected via ILibraryItem interface)");
+
+            // Injecting DVD
+            service.AddItem(new DVD("C++ Tutorial", 90, "D002"));
+            Console.WriteLine($" - Added DVD to LibraryService (injected via ILibraryItem interface)");
+
+            // Injecting Magzines
+            service.AddItem(new Magzines(50, "Science Weekly", "M002"));
+            Console.WriteLine($" - Added Magzines to LibraryService (injected via ILibraryItem interface)");
+        }
+
+        static void Header(string name)
+        {
+            Console.WriteLine("\t\t____________________________________________________");
+            Console.WriteLine($"\t\t|                     {name,-30}|");
+            Console.WriteLine("\t\t|___________________________________________________|");
         }
     }
 }
