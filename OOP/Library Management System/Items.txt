@@ -1,8 +1,0 @@
-The Pragmatic Programmer,Andrew Hunt,B003,null,null,null
-C# Essentials,null,D003,1.5833334,null,null
-Science Monthly,null,M003,null,42,null
-Daily News,null,N001,null,null,English
-The Pragmatic Programmer,Andrew Hunt,B003,null,null,null
-C# Essentials,null,D003,1.5833334,null,null
-Science Monthly,null,M003,null,42,null
-Daily News,null,N001,null,null,English
