@@ -7,7 +7,7 @@ namespace LibraryManagementSystem.Models.LibraryItems
     {
         public float duration { get; set; }
 
-        public DVD(string title, int min, string SrNo) : base(title, SrNo)
+        public DVD(string title, float min, string SrNo) : base(title, SrNo)
         {
             this.duration = (float)min / 60;
         }
@@ -32,9 +32,13 @@ namespace LibraryManagementSystem.Models.LibraryItems
             base.IsAvailable = true;
         }
 
+        public string ToFile()
+        {
+            return $"{title},null,{SrNo},{duration},null,null";
+        }
         public override string ToString()
         {
-            return $"Title: {title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n";
+            return $"Type: DVD | Title: {title,-25} | SrNo: {SrNo,-8} | Duration: {duration:F2} hrs | Available: {IsAvailable}";
         }
     }
 }

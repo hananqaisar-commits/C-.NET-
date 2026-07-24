@@ -3,6 +3,8 @@ using LibraryManagementSystem.Interfaces;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.LibraryItems;
 using LibraryManagementSystem.Services;
+using LibraryManagementSystem.Services.LibraryServices;
+using LibraryManagementSystem.Services.LibraryServices.AddItem;
 
 namespace Name
 {
@@ -31,18 +33,18 @@ namespace Name
             Console.WriteLine("\n Same method call behaves differently for each class:\n");
 
             // Create objects again for polymorphism demo
-            ILibraryItem bookPly = new Book("C# Basics", "John Doe", "B001");//Ply mean polymorphism
+            ILibraryItem bookPly = new Book("C# Basics", "John Doe", "B001");
             ILibraryItem dvdPly = new DVD("Python Course", 120, "D001");
             ILibraryItem magPly = new Magzines(45, "Tech Today", "M001");
 
             // Polymorphic array - treating different classes as same interface type
-            ILibraryItem[] allItems = { bookPly, dvdPly, magPly };//added all objects in array of type ILibraryItem
+            ILibraryItem[] allItems = { bookPly, dvdPly, magPly };
 
             Borrower user = new Borrower("Hanan Qaisar");
 
             // Same method call - different output for each type
             Console.WriteLine("Same method call on whole array but, different output's show's polymorphism\n\n");
-            foreach (ILibraryItem libItem in allItems)// intwerface used
+            foreach (ILibraryItem libItem in allItems)
             {
                 libItem.IssueItem(user);
             }
@@ -51,7 +53,7 @@ namespace Name
             Header("DEPENDENCY INJECTION DEMO");
             Console.WriteLine("\n LibraryService accepts any ILibraryItem:");
 
-            var service = new LibraryService();//var decide the data type at runtime
+            var service = new LibraryService();
 
             // Injecting Book
             service.AddItem(new Book("Clean Code", "Robert Martin", "B002"));
@@ -64,13 +66,33 @@ namespace Name
             // Injecting Magzines
             service.AddItem(new Magzines(50, "Science Weekly", "M002"));
             Console.WriteLine($" - Added Magzines to LibraryService (injected via ILibraryItem interface)");
-        }
 
+            Header("WRITE DEMO");
+            var writer = new WriteFile();
+            writer.WriteItem(new Book("The Pragmatic Programmer", "Andrew Hunt", "B003"));
+            writer.WriteItem(new DVD("C# Essentials", 95, "D003"));
+            writer.WriteItem(new Magzines(42, "Science Monthly", "M003"));
+            writer.WriteItem(new NewsPapers("English", "Daily News", "N001"));
+
+            Console.WriteLine("All data written to file");
+
+            Header("READ DEMO");
+            List<ILibraryItem> Items = new List<ILibraryItem>();
+            Items.Clear();
+            var View = new ViewItem();
+            Items = View.GetItems();
+            foreach (var item in Items)
+            {
+                Console.WriteLine(item); //called tostring method
+            }
+        }
         static void Header(string name)
         {
             Console.WriteLine("\t\t____________________________________________________");
             Console.WriteLine($"\t\t|                     {name,-30}|");
             Console.WriteLine("\t\t|___________________________________________________|");
+            Console.WriteLine("\n\nPress any key to continue...");
+            Console.ReadKey();
         }
     }
 }

@@ -36,9 +36,14 @@ namespace LibraryManagementSystem.Models.LibraryItems
             base.IsAvailable = true;
         }
 
+        public string ToFile()
+        {
+            return $"{title},{author},{SrNo},null,null,null";
+        }
+
         public override string ToString()
         {
-            return $"Title: {title} | Author: {author}\n";
+            return $"Book | ID: {SrNo} | Title: {title} | Author: {author} | Available: {IsAvailable}";
         }
     }
 }

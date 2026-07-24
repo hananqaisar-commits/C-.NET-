@@ -4,7 +4,7 @@ namespace LibraryManagementSystem.Services
 {
     public class LibraryService
     {
-        private List<ILibraryItem> items = new List<ILibraryItem>();
+        private readonly List<ILibraryItem> items = new();
 
         public void AddItem(ILibraryItem item)
         {
@@ -15,5 +15,6 @@ namespace LibraryManagementSystem.Services
         {
             items.Remove(item);
         }
+
     }
 }

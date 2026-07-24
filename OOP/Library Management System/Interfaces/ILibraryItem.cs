@@ -6,5 +6,6 @@ namespace LibraryManagementSystem.Interfaces
     {
         void IssueItem(Borrower user);
         void ReturnItem(Borrower user);
+        string ToFile();
     }
 }

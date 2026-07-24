@@ -3,20 +3,20 @@ using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Models.LibraryItems
 {
-    public class Magzines : Items, ILibraryItem
+    public class NewsPapers : Items, ILibraryItem
     {
-        public int Pages { get; set; }
+        public string Language { get; set; }
 
-        public Magzines(int page, string title, string SrNo) : base(title, SrNo)
+        public NewsPapers(string language, string title, string SrNo) : base(title, SrNo)
         {
-            this.Pages = page;
+            Language = language;
         }
 
         public void IssueItem(Borrower user)
         {
             if (base.IsAvailable)
             {
-                Console.WriteLine($"{title} Magzine is issued to {user.name}");
+                Console.WriteLine($"{title} newspaper is issued to {user.name}");
                 base.IsAvailable = false;
             }
             else
@@ -33,12 +33,12 @@ namespace LibraryManagementSystem.Models.LibraryItems
 
         public string ToFile()
         {
-            return $"{title},null,{SrNo},null,{Pages},null";
+            return $"{title},null,{SrNo},null,null,{Language}";
         }
 
         public override string ToString()
         {
-            return $"Type: Magazine | Title: {title,-25} | SrNo: {SrNo,-8} | Pages: {Pages,-4} | Available: {IsAvailable}";
+            return $"Type: Newspaper | Title: {title,-25} | SrNo: {SrNo,-8} | Language: {Language,-10} | Available: {IsAvailable}";
         }
     }
 }
