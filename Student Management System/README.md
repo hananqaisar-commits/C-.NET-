@@ -3,6 +3,7 @@
 A simple console-based application to manage student records — add students, save/load data from a file, and view class statistics (highest, lowest, average marks).
 
 ## Directory Structure
+```
 .
 ├── bin
 │   └── Debug
@@ -44,8 +45,7 @@ A simple console-based application to manage student records — add students, s
 ├── Student Management System.csproj
 ├── StudentOperations.cs
 └── students.txt
-
-9 directories, 32 files
+```
 
 ## Run
 Use `run.sh` to auto-detect your OS and launch the project.
