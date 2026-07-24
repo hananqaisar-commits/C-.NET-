@@ -6,7 +6,7 @@ case "$(uname -s)" in
     *) echo "Unknown OS"; exit 1 ;;
 esac
 
-PROJECT_PATH=$(find "$SEARCH_ROOT" -type d -iname "Student Management System" -path "*C-.NET*" 2>/dev/null | head -n 1)
+PROJECT_PATH=$(find "$SEARCH_ROOT" -type d -iname "Student Management System"  2>/dev/null | head -n 1)
 
 if [ -z "$PROJECT_PATH" ]; then
     echo "Project folder not found under $SEARCH_ROOT"
