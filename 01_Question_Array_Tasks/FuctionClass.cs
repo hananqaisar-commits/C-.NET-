@@ -1,90 +1,113 @@
+using System;
+using System.Linq;
 
-public class MyPractise
+namespace _01_Question_Array_Tasks
 {
-    public void printArray(int[] array)// It will loop through the array and print each element along with its index.
+    public class MyPractise
     {
-        int count = 0;
-        foreach (int n in array)
+        public void PrintArray(int[] array)
         {
-            Console.WriteLine($"Index {count} ===> {n}");
-            ++count;
-        }
-    }
-    public void printArrayAvg(int[] array)
-    {
+            int count = 0;
 
-        float average = 0;
-        int count = 0;
-        foreach (int n in array)// It will loop through the array and calculate the sum of all elements and count the number of elements in the array.
-        {
-            average += n;
-            count++;
-        }
-        Console.WriteLine($"Average is: {(float)average / count}");
-    }
-    public void arrayMax(int[] array)
-    {
-        int max = int.MinValue;
-        foreach (int n in array)
-        {
-            if (n > max)
+            foreach (int n in array)
             {
-                max = n;
+                Console.WriteLine($"Index {count} ===> {n}");
+                count++;
+            }
+        }
+
+        public void PrintArrayAverage(int[] array)
+        {
+            int sum = 0;
+            int count = 0;
+
+            foreach (int n in array)
+            {
+                sum += n;
+                count++;
             }
 
+            Console.WriteLine($"Average is: {(float)sum / count}");
         }
-        Console.WriteLine($"Max element is: {max}");
-    }
-    public void arrayMin(int[] array)// It will loop through the array and find the minimum element in the array.
-    {
-        int min = int.MaxValue;
-        foreach (int n in array)
-        {
-            if (n < min)
-            {
-                min = n;
-            }
-        }
-        Console.WriteLine($"Min element is: {min}");
-    }
 
-    public void array_2ndLargest(int[] array)// It will loop through the array and find the second largest element in the array.
-    {
-        int max = int.MinValue;
-        int secondMax = int.MinValue;
-        foreach (int n in array)
+        public static int ArrayMax(int[] array)
         {
-            if (n > max)
+            int max = int.MinValue;
+
+            foreach (int n in array)
             {
-                secondMax = max;
-                max = n;
-            }
-            else if (n > secondMax && n != max)
-            {
-                secondMax = n;
+                if (n > max)
+                {
+                    max = n;
+                }
             }
 
+            return max;
         }
-        Console.WriteLine($"Second Max element is: {secondMax}");
-    }
-    public void arraySecondMin(int[] array)// It will loop through the array and find the second minimum element in the array.
-    {
-        int min = int.MaxValue;
-        int secondMinimuim = int.MaxValue;
-        foreach (int n in array)
+
+        public static int ArrayMin(int[] array)
         {
-            if (n < min)
+            int min = int.MaxValue;
+
+            foreach (int n in array)
             {
-                secondMinimuim = min;
-                min = n;
-            }
-            else if (n < secondMinimuim && n != min)
-            {
-                secondMinimuim = n;
+                if (n < min)
+                {
+                    min = n;
+                }
             }
 
+            return min;
         }
-        Console.WriteLine($"Second Min element is: {secondMinimuim}");
+
+        public static int ArraySecondLargest(int[] array)
+        {
+            int max = int.MinValue;
+            int secondMax = int.MinValue;
+
+            foreach (int n in array)
+            {
+                if (n > max)
+                {
+                    secondMax = max;
+                    max = n;
+                }
+                else if (n > secondMax && n != max)
+                {
+                    secondMax = n;
+                }
+            }
+
+            return secondMax;
+        }
+
+        public static int ArraySecondMinimum(int[] array)
+        {
+            int min = int.MaxValue;
+            int secondMin = int.MaxValue;
+
+            foreach (int n in array)
+            {
+                if (n < min)
+                {
+                    secondMin = min;
+                    min = n;
+                }
+                else if (n < secondMin && n != min)
+                {
+                    secondMin = n;
+                }
+            }
+
+            return secondMin;
+        }
+
+        public int MaxProduct(int n)
+        {
+            int[] separatedDigits = n.ToString().Select(s => s - '0').ToArray();//convert digit to array
+            int max = ArrayMax(separatedDigits);
+            int secondMax = ArraySecondLargest(separatedDigits);
+            return max * secondMax;
+        }
     }
 }
-
