@@ -12,4 +12,4 @@ son
 *.suo
 
 # Data files (optional)
-Items.txt
+.*txt
