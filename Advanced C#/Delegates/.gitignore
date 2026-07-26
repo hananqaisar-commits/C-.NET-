@@ -1,0 +1,15 @@
+# Build files
+bin/
+obj/
+son
+
+# IDE
+.vscode/
+.idea/
+
+# Generated files
+*.user
+*.suo
+
+# Data files (optional)
+Items.txt
