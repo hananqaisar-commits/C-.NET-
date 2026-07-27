@@ -17,14 +17,14 @@ namespace LibraryManagementSystem.Models.LibraryItems
             this.author = "Unknown";
         }
 
-        public string ToFile()
+        public override string ToFile()
         {
-            return $"{Title},{author},{SrNo},null,null,null";
+            return $"Book,{Title},{author},{SrNo},null,null,null";
         }
 
         public override string ToString()
         {
-            return $"Book | ID: {SrNo} | Title: {Title} | Author: {author} | Available: {IsAvailable}";
+            return $"Title:  {Title,-40}| ID: {SrNo,-10} | Author: {author,-20} | Available: {IsAvailable}";
         }
     }
 }

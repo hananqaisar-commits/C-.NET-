@@ -14,65 +14,67 @@ public class ViewItem
     public List<ILibraryItem> GetItems()
     {
         List<ILibraryItem> items = new List<ILibraryItem>();
+
         if (!File.Exists(pathFile))
         {
             Console.WriteLine("Items.txt not exist(call from View items)");
+            return items;
         }
-        else
+
+        using (StreamReader ViewReader = new StreamReader(pathFile))
         {
-            using (StreamReader ViewReader = new StreamReader(pathFile))
+            string line;
+
+            while ((line = ViewReader.ReadLine()) != null)
             {
-                string line;
+                string[] data = line.Split(',');
 
-                while ((line = ViewReader.ReadLine()) != null)
+                if (data.Length < 7)
                 {
-                    string[] data = line.Split(',');
-                    if (data.Length < 6)
-                    {
-                        Console.WriteLine("Invalid line");
-                        continue;
-                    }
+                    Console.WriteLine("Invalid line");
+                    continue;
+                }
 
-                    string title = data[0];
-                    string author = data[1];
-                    string srNo = data[2];
+                string type = data[0];
+                string title = data[1];
+                string author = data[2];
+                string srNo = data[3];
 
-                    if (author != "null")
-                    {
-                        Console.WriteLine($"{this.GetType()} is added!");
+                switch (type)
+                {
+                    case "Book":
                         items.Add(new Book(title, author, srNo));
-                    }
-                    else if (data[3] != "null")
-                    {
-                        if (float.TryParse(data[3], out float minutes))
-                            Console.WriteLine($"{this.GetType()} is added!");
+                        break;
 
-                        items.Add(new DVD(title, minutes, srNo));
-                    }
-                    else if (data[4] != "null")
-                    {
-                        int pages = int.Parse(data[4]);
-                        Console.WriteLine($"{this.GetType()} is added!");
+                    case "DVD":
+                        if (float.TryParse(data[4], out float hours))
+                        {
+                            items.Add(new DVD(title, hours * 60, srNo));
+                        }
+                        break;
 
-                        items.Add(new Magzines(pages, title, srNo));
-                    }
-                    else if (data[5] != "null")
-                    {
-                        string language = data[5];
-                        if (this is NewsPapers)
+                    case "Magazine":
+                        if (int.TryParse(data[5], out int pages))
                         {
-                            Console.WriteLine($"{this.GetType()} is added!");
-                            items.Add(new NewsPapers(language, title, srNo));
+                            items.Add(new Magzines(pages, title, srNo));
                         }
-                        else if (this is ResearchPaper)
-                        {
-                            Console.WriteLine($"{this.GetType()} is added!");
-                            items.Add(new ResearchPaper(language, title, srNo));
-                        }
-                    }
+                        break;
+
+                    case "Newspaper":
+                        items.Add(new NewsPapers(data[6], title, srNo));
+                        break;
+
+                    case "ResearchPaper":
+                        items.Add(new ResearchPaper(data[6], title, srNo));
+                        break;
+
+                    default:
+                        Console.WriteLine($"Unknown item type: {type}");
+                        break;
                 }
             }
         }
+
         return items;
     }
 }

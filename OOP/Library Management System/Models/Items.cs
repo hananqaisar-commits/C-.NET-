@@ -2,7 +2,7 @@ using LibraryManagementSystem.Interfaces;
 
 namespace LibraryManagementSystem.Models
 {
-    public class Items : ILibraryItem
+    public abstract class Items : ILibraryItem
     {
         public string Title { get; set; }
         public string SrNo { get; set; }
@@ -13,6 +13,8 @@ namespace LibraryManagementSystem.Models
             this.SrNo = SrNo;
             this.IsAvailable = IsAvailable;
         }
+        public abstract string ToFile();//it will implemented in all classes
+
         public void ReturnItem(Borrower user)
         {
             this.IsAvailable = true;
