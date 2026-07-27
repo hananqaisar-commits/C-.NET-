@@ -39,27 +39,39 @@ public class ViewItem
 
                     if (author != "null")
                     {
+                        Console.WriteLine($"{this.GetType()} is added!");
                         items.Add(new Book(title, author, srNo));
                     }
                     else if (data[3] != "null")
                     {
                         if (float.TryParse(data[3], out float minutes))
-                            items.Add(new DVD(title, minutes, srNo));
+                            Console.WriteLine($"{this.GetType()} is added!");
+
+                        items.Add(new DVD(title, minutes, srNo));
                     }
                     else if (data[4] != "null")
                     {
                         int pages = int.Parse(data[4]);
+                        Console.WriteLine($"{this.GetType()} is added!");
+
                         items.Add(new Magzines(pages, title, srNo));
                     }
                     else if (data[5] != "null")
                     {
                         string language = data[5];
-                        items.Add(new NewsPapers(language, title, srNo));
+                        if (this is NewsPapers)
+                        {
+                            Console.WriteLine($"{this.GetType()} is added!");
+                            items.Add(new NewsPapers(language, title, srNo));
+                        }
+                        else if (this is ResearchPaper)
+                        {
+                            Console.WriteLine($"{this.GetType()} is added!");
+                            items.Add(new ResearchPaper(language, title, srNo));
+                        }
                     }
-
                 }
             }
-
         }
         return items;
     }

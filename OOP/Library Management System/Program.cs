@@ -67,6 +67,10 @@ namespace Name
             service.AddItem(new Magzines(50, "Science Weekly", "M002"));
             Console.WriteLine($" - Added Magzines to LibraryService (injected via ILibraryItem interface)");
 
+            // Injecting ResearchPaper
+            service.AddItem(new ResearchPaper(50, "Artificial Intelligence Research", "RP001"));
+            Console.WriteLine($" - Added ResearchPaper to LibraryService (injected via ILibraryItem interface)");
+
             Header("WRITE DEMO");
             var writer = new WriteFile();
             writer.WriteItem(new Book("The Pragmatic Programmer", "Andrew Hunt", "B003"));
