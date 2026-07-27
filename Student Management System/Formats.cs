@@ -24,6 +24,8 @@ namespace Names
             Console.WriteLine("Student Management System");
             Console.WriteLine("Good Bye!");
         }
+
+
         public void HeaderTexts()
         {
             Console.WriteLine($"{"ID",-8} {"Name",-20} {"Marks",-6}");
@@ -33,7 +35,7 @@ namespace Names
             Console.WriteLine("\n1. Add Student");
             Console.WriteLine("2. View Students");
             Console.WriteLine("3. Class Statistics");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("4. Exit");
             HeaderLine();//function used here to print a line after the menu
             Console.WriteLine("Enter your choice: ");
 
@@ -42,7 +44,7 @@ namespace Names
         public void continuePrompt()// It will prompt the user to press any key to continue after performing an action.
         {
             Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            Console.ReadKey();// Wait for the user to press a key before continuing
         }
     }
 }

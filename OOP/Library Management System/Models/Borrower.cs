@@ -6,7 +6,7 @@ namespace LibraryManagementSystem.Models
     {
         public string id { get; set; }
         public string name { get; set; }
-        private ILibraryItem? BorrowedItem;
+        private ILibraryItem BorrowedItem;
 
         string preFix = "Br";
         int count = 1;

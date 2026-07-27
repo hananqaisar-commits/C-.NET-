@@ -4,7 +4,7 @@ namespace LibraryManagementSystem.Services.LibraryServices;
 
 public class WriteFile
 {
-    string _filePath;
+    string _filePath;//global variable
     public void WriteItem(ILibraryItem item)
     {
         _filePath = Path.Combine(Directory.GetCurrentDirectory(), "Items.txt");

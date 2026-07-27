@@ -3,7 +3,7 @@ using LibraryManagementSystem.Models;
 
 namespace LibraryManagementSystem.Models.LibraryItems
 {
-    public class Magzines : Items, ILibraryItem
+    public class Magzines : Items
     {
         public int Pages { get; set; }
 
@@ -12,33 +12,14 @@ namespace LibraryManagementSystem.Models.LibraryItems
             this.Pages = page;
         }
 
-        public void IssueItem(Borrower user)
-        {
-            if (base.IsAvailable)
-            {
-                Console.WriteLine($"{title} Magzine is issued to {user.name}");
-                base.IsAvailable = false;
-            }
-            else
-            {
-                Console.WriteLine($"Temporary Message: {title} is temporary not available");
-            }
-        }
-
-        public void ReturnItem(Borrower user)
-        {
-            base.IsAvailable = true;
-            Console.WriteLine($"{title} with {SrNo} is returned by {user.name}");
-        }
-
         public string ToFile()
         {
-            return $"{title},null,{SrNo},null,{Pages},null";
+            return $"{Title},null,{SrNo},null,{Pages},null";
         }
 
         public override string ToString()
         {
-            return $"Type: Magazine | Title: {title,-25} | SrNo: {SrNo,-8} | Pages: {Pages,-4} | Available: {IsAvailable}";
+            return $"Type: Magazine | Title: {Title,-25} | SrNo: {SrNo,-8} | Pages: {Pages,-4} | Available: {IsAvailable}";
         }
     }
 }
