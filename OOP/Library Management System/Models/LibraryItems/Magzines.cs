@@ -12,14 +12,14 @@ namespace LibraryManagementSystem.Models.LibraryItems
             this.Pages = page;
         }
 
-        public string ToFile()
+        public override string ToFile()
         {
-            return $"{Title},null,{SrNo},null,{Pages},null";
+            return $"Magazine,{Title},null,{SrNo},null,{Pages},null";
         }
 
         public override string ToString()
         {
-            return $"Type: Magazine | Title: {Title,-25} | SrNo: {SrNo,-8} | Pages: {Pages,-4} | Available: {IsAvailable}";
+            return $"Title: {Title,-40} | SrNo: {SrNo,-10} | Pages: {Pages,-20} | Available: {IsAvailable}";
         }
     }
 }

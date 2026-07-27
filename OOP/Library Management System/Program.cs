@@ -68,7 +68,7 @@ namespace Name
             Console.WriteLine($" - Added Magzines to LibraryService (injected via ILibraryItem interface)");
 
             // Injecting ResearchPaper
-            service.AddItem(new ResearchPaper(50, "Artificial Intelligence Research", "RP001"));
+            service.AddItem(new ResearchPaper("English", "Artificial Intelligence Research", "RP001"));
             Console.WriteLine($" - Added ResearchPaper to LibraryService (injected via ILibraryItem interface)");
 
             Header("WRITE DEMO");

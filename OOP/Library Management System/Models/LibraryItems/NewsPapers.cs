@@ -11,15 +11,14 @@ namespace LibraryManagementSystem.Models.LibraryItems
         {
             Language = language;
         }
-
-        public string ToFile()
+        public override string ToFile()
         {
-            return $"{Title},null,{SrNo},null,null,{Language}";
+            return $"Newspaper,{Title},null,{SrNo},null,null,{Language}";
         }
 
         public override string ToString()
         {
-            return $"Type: Newspaper | Title: {Title,-25} | SrNo: {SrNo,-8} | Language: {Language,-10} | Available: {IsAvailable}";
+            return $"Title: {Title,-40} | SrNo: {SrNo,-10} | Language: {Language,-20} | Available: {IsAvailable}";
         }
     }
 }

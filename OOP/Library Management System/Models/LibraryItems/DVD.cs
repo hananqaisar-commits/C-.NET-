@@ -16,13 +16,13 @@ namespace LibraryManagementSystem.Models.LibraryItems
         {
             Console.WriteLine($"Title: {Title} | Duration: {duration} hours | Availability: {(IsAvailable ? "yes" : "No")}\n");
         }
-        public string ToFile()
+        public override string ToFile()
         {
-            return $"{Title},null,{SrNo},{duration},null,null";
+            return $"DVD,{Title},null,{SrNo},{duration},null,null";
         }
         public override string ToString()
         {
-            return $"Type: DVD | Title: {Title,-25} | SrNo: {SrNo,-8} | Duration: {duration:F2} hrs | Available: {IsAvailable}";
+            return $"Title: {Title,-40} | SrNo: {SrNo,-10} | Duration: {duration:F2} hrs | Available: {IsAvailable}";
         }
     }
 }
