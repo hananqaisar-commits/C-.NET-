@@ -11,7 +11,7 @@ namespace LibraryManagementSystem.Models
         {
             this.Title = Title;
             this.SrNo = SrNo;
-            this.IsAvailable = IsAvailable;
+            this.IsAvailable = true;
         }
         public abstract string ToFile();//it will implemented in all classes
 

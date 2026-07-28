@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using LibraryManagementSystem.Interfaces;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.LibraryItems;
@@ -12,90 +13,289 @@ namespace Name
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Library Management System - OOP Demo";
+
 
             Header("1) INHERITANCE DEMO");
-            Console.WriteLine("\n Items is Parent class and their properties are inherited by Book, DVD, Magzines:\n");
-            Console.WriteLine($"  - Book inherits: title, SrNo, IsAvailable from base 'Items' class");
-            Console.WriteLine($"  - DVD inherits: title, SrNo, IsAvailable from base 'Items' class");
-            Console.WriteLine($"  - Magzines inherits: title, SrNo, IsAvailable from base 'Items' class");
+
+            Console.WriteLine("Creating Book...");
+            Book book = new Book(
+                "Automate boring stuff with python",
+                "Hanan Qaisar",
+                "B001"
+            );
+
+            Console.WriteLine("Book created!");
+            Console.WriteLine($"Title: {book.Title}");
+            Console.WriteLine($"SrNo: {book.SrNo}");
+            Console.WriteLine($"Available: {book.IsAvailable}");
+
+            Console.WriteLine("\nThese properties came from Items (Parent Class).");
+
+            Pause();
 
 
             Header("2) INTERFACE DEMO");
-            Console.WriteLine("\nAll classes implement ILibraryItem interface:\n");
-            ILibraryItem book = new Book("Automate boring stuff with python", "Hanan Qaisar", "1234");
-            Console.WriteLine($"  - Book implements ILibraryItem (now it has IssueItem & ReturnItem methods)");
-            ILibraryItem dvd = new DVD("GTA IV", 690, "4573");
-            Console.WriteLine($"  - DVD implements ILibraryItem (now it has also IssueItem & ReturnItem methods)");
-            ILibraryItem magzine = new Magzines(32, "National Geographic", "7890");
-            Console.WriteLine($"  - Magzines implements ILibraryItem (now it has IssueItem & ReturnItem methods)");
 
-            Header("POLYMORPHISM DEMO");
-            Console.WriteLine("\n Same method call behaves differently for each class:\n");
+            Console.WriteLine("Creating objects using ILibraryItem reference...\n");
 
-            // Create objects again for polymorphism demo
-            ILibraryItem bookPly = new Book("C# Basics", "John Doe", "B001");
-            ILibraryItem dvdPly = new DVD("Python Course", 120, "D001");
-            ILibraryItem magPly = new Magzines(45, "Tech Today", "M001");
+            ILibraryItem bookItem =
+                new Book("C# Basics", "John Doe", "B001");
 
-            // Polymorphic array - treating different classes as same interface type
-            ILibraryItem[] allItems = { bookPly, dvdPly, magPly };
+            Console.WriteLine("Book object created.");
+            Console.WriteLine("Reference type: ILibraryItem");
+            Console.WriteLine("Available methods:");
+            Console.WriteLine("  IssueItem()");
+            Console.WriteLine("  ReturnItem()");
+
+            Pause();
+
+            ILibraryItem dvdItem =
+                new DVD("GTA IV", 690, "D001");
+
+            Console.WriteLine("DVD object created.");
+            Console.WriteLine("Reference type: ILibraryItem");
+
+            Pause();
+
+            ILibraryItem magazineItem =
+                new Magzines(32, "National Geographic", "M001");
+
+            Console.WriteLine("Magzines object created.");
+            Console.WriteLine("Reference type: ILibraryItem");
+
+            Pause();
+
+            Header("3) POLYMORPHISM DEMO");
+
+            Console.WriteLine("Creating 3 different objects...\n");
+
+            ILibraryItem bookPly =
+                new Book("C# Basics", "John Doe", "B002");
+
+            Console.WriteLine("Book created.");
+
+            ILibraryItem dvdPly =
+                new DVD("Python Course", 120, "D002");
+
+            Console.WriteLine("DVD created.");
+
+            ILibraryItem magPly =
+                new Magzines(45, "Tech Today", "M002");
+
+            Console.WriteLine("Magzines created.");
+
+            Console.WriteLine("\nAll 3 objects are stored as ILibraryItem.");
+
+            Pause();
+
+            ILibraryItem[] allItems =
+            {
+                bookPly,
+                dvdPly,
+                magPly
+            };
 
             Borrower user = new Borrower("Hanan Qaisar");
 
-            // Same method call - different output for each type
-            Console.WriteLine("Same method call on whole array but, different output's show's polymorphism\n\n");
-            foreach (ILibraryItem libItem in allItems)
+            Header("SAME METHOD - DIFFERENT BEHAVIOR");
+
+            Console.WriteLine("The same method will be called for every object:");
+            Console.WriteLine();
+            Console.WriteLine("    item.IssueItem(user);");
+
+            Pause();
+
+            foreach (ILibraryItem item in allItems)
             {
-                libItem.IssueItem(user);
+                Console.Clear();
+
+                Console.WriteLine("========================================");
+                Console.WriteLine($"Object: {item.GetType().Name}");
+                Console.WriteLine("========================================");
+
+                Console.WriteLine("\nCalling:");
+                Console.WriteLine("item.IssueItem(user);");
+
+                Console.WriteLine("\nOutput:");
+
+                // SAME METHOD CALL
+                item.IssueItem(user);
+
+                Pause();
             }
 
+            Console.Clear();
 
-            Header("DEPENDENCY INJECTION DEMO");
-            Console.WriteLine("\n LibraryService accepts any ILibraryItem:");
+            Console.WriteLine("========================================");
+            Console.WriteLine("WHAT JUST HAPPENED?");
+            Console.WriteLine("========================================\n");
+
+            Console.WriteLine("Book     -> Book's IssueItem()");
+            Console.WriteLine("DVD      -> DVD's IssueItem()");
+            Console.WriteLine("Magzines -> Magzines' IssueItem()");
+
+            Console.WriteLine("\nSame method call.");
+            Console.WriteLine("Different behavior.");
+            Console.WriteLine("This is POLYMORPHISM.");
+
+            Pause();
+            Header("4) DEPENDENCY INJECTION DEMO");
 
             var service = new LibraryService();
 
-            // Injecting Book
-            service.AddItem(new Book("Clean Code", "Robert Martin", "B002"));
-            Console.WriteLine($" - Added Book to LibraryService (injected via ILibraryItem interface)");
+            Console.WriteLine("LibraryService is ready.");
+            Console.WriteLine("\nIt accepts ILibraryItem.\n");
 
-            // Injecting DVD
-            service.AddItem(new DVD("C++ Tutorial", 90, "D002"));
-            Console.WriteLine($" - Added DVD to LibraryService (injected via ILibraryItem interface)");
+            Console.WriteLine("Adding Book...");
+            service.AddItem(
+                new Book("Clean Code", "Robert Martin", "B003")
+            );
+            Console.WriteLine("Book added.");
 
-            // Injecting Magzines
-            service.AddItem(new Magzines(50, "Science Weekly", "M002"));
-            Console.WriteLine($" - Added Magzines to LibraryService (injected via ILibraryItem interface)");
+            Pause();
 
-            // Injecting ResearchPaper
-            service.AddItem(new ResearchPaper("English", "Artificial Intelligence Research", "RP001"));
-            Console.WriteLine($" - Added ResearchPaper to LibraryService (injected via ILibraryItem interface)");
+            Console.Clear();
 
-            Header("WRITE DEMO");
+            Console.WriteLine("Adding DVD...");
+            service.AddItem(
+                new DVD("C++ Tutorial", 90, "D003")
+            );
+            Console.WriteLine("DVD added.");
+
+            Pause();
+
+            Console.Clear();
+
+            Console.WriteLine("Adding Magzines...");
+            service.AddItem(
+                new Magzines(50, "Science Weekly", "M003")
+            );
+            Console.WriteLine("Magzines added.");
+
+            Pause();
+
+            Console.Clear();
+
+            Console.WriteLine("Adding ResearchPaper...");
+            service.AddItem(
+                new ResearchPaper(
+                    "English",
+                    "Artificial Intelligence Research",
+                    "RP001"
+                )
+            );
+            Console.WriteLine("ResearchPaper added.");
+
+            Console.WriteLine("\nDifferent objects injected into");
+            Console.WriteLine("the same LibraryService.");
+
+            Pause();
+
+            Header("5) WRITE TO FILE");
+
             var writer = new WriteFile();
-            writer.WriteItem(new Book("The Pragmatic Programmer", "Andrew Hunt", "B003"));
-            writer.WriteItem(new DVD("C# Essentials", 95, "D003"));
-            writer.WriteItem(new Magzines(42, "Science Monthly", "M003"));
-            writer.WriteItem(new NewsPapers("English", "Daily News", "N001"));
 
-            Console.WriteLine("All data written to file");
+            Console.WriteLine("Writing Book...");
+            writer.WriteItem(
+                new Book(
+                    "The Pragmatic Programmer",
+                    "Andrew Hunt",
+                    "B004"
+                )
+            );
+            Console.WriteLine("Book written to file.");
 
-            Header("READ DEMO");
-            List<ILibraryItem> Items = new List<ILibraryItem>();
-            Items.Clear();
+            Pause();
+
+            Console.Clear();
+
+            Console.WriteLine("Writing DVD...");
+            writer.WriteItem(
+                new DVD("C# Essentials", 95, "D004")
+            );
+            Console.WriteLine("DVD written to file.");
+
+            Pause();
+
+            Console.Clear();
+
+            Console.WriteLine("Writing Magzines...");
+            writer.WriteItem(
+                new Magzines(42, "Science Monthly", "M004")
+            );
+            Console.WriteLine("Magzines written to file.");
+
+            Pause();
+
+            Console.Clear();
+
+            Console.WriteLine("Writing Newspaper...");
+            writer.WriteItem(
+                new NewsPapers("English", "Daily News", "N001")
+            );
+            Console.WriteLine("Newspaper written to file.");
+
+            Console.WriteLine("\nAll objects have been written to file.");
+
+            Pause();
+
+
+            Header("6) READ FROM FILE");
+
+            Console.WriteLine("Reading objects from file...\n");
+
             var View = new ViewItem();
-            Items = View.GetItems();
+
+            List<ILibraryItem> Items = View.GetItems();
+
+            Console.WriteLine($"Objects found: {Items.Count}\n");
+
+            Pause();
+
             foreach (var item in Items)
             {
-                Console.WriteLine(item); //called tostring method
+                Console.Clear();
+
+                Console.WriteLine("========================================");
+                Console.WriteLine($"Type: {item.GetType().Name}");
+                Console.WriteLine("========================================\n");
+
+                Console.WriteLine(item);
+
+                Pause();
             }
+
+
+            Header("DEMO COMPLETE");
+
+            Console.WriteLine("Inheritance       ");
+            Console.WriteLine("Interface         ");
+            Console.WriteLine("Polymorphism      ");
+            Console.WriteLine("Dependency Inject ");
+            Console.WriteLine("Write to File     ");
+            Console.WriteLine("Read from File    ");
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
         }
+
+
         static void Header(string name)
         {
-            Console.WriteLine("\t\t____________________________________________________");
-            Console.WriteLine($"\t\t|                     {name,-30}|");
-            Console.WriteLine("\t\t|___________________________________________________|");
-            Console.WriteLine("\n\nPress any key to continue...");
+            Console.Clear();
+
+            Console.WriteLine();
+            Console.WriteLine("========================================");
+            Console.WriteLine($"        {name}");
+            Console.WriteLine("========================================");
+            Console.WriteLine();
+        }
+
+
+        static void Pause()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
     }
