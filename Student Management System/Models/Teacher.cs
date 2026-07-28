@@ -1,10 +1,10 @@
-namespace Models.Teachers;
+namespace Models.Teacher;
 
 using Models.Person;
-public class Teachers : Person
+public class Teacher : Person
 {
     public int Grade { get; set; }
-    public Teachers(string Name, string Id, string Email, int Grade) : base(Id, Name, Email)
+    public Teacher(string Id, string Name, string Email, int Grade) : base(Id, Name, Email)
     {
         this.Grade = Grade;//like 17,18,19 grades
     }
@@ -17,10 +17,10 @@ public class Teachers : Person
     }
     public string ToFile()//use to write into file
     {
-        return $"Teachers,{Id},{Name},{Email},{Grade}";
+        return $"Teacher,{Id},{Name},{Email},{Grade}";
     }
     public override string ToString()//overriding the ToString method for student objects
     {
-        return $"{Id,-8} {Name,-30} {Email,-30} {Grade,-6}";
+        return $"{Id,-12} {Name,-30} {Email,-30} {Grade,-6}";
     }
 }

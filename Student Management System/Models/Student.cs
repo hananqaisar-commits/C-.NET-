@@ -1,4 +1,4 @@
-namespace Models.Students;
+namespace Models.Student;
 
 using Models.Person;
 public class Student : Person
@@ -8,7 +8,7 @@ public class Student : Person
     {
         this.Marks = 0.0;
     }
-    public Student(string Name, string Id, string Email, double Marks) : base(Id, Name, Email)//parameterized constructor
+    public Student(string Id, string Name, string Email, double Marks) : base(Id, Name, Email)//parameterized constructor
     {
         this.Marks = Marks;
     }
@@ -21,10 +21,10 @@ public class Student : Person
     }
     public string ToFile()//use to write into file
     {
-        return $"Students,{Id},{Name},{Email},{Marks}";
+        return $"Student,{Id},{Name},{Email},{Marks}";
     }
     public override string ToString()//overriding the ToString method for student objects
     {
-        return $"{Id,-8} {Name,-30} {Email,-30} {Marks,-6}";
+        return $"{Id,-12} {Name,-30} {Email,-30} {Marks,-6}";
     }
 }
