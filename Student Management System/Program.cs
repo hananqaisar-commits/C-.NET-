@@ -1,13 +1,23 @@
-﻿using Names;
-namespace Name
+﻿using Models.Person;
+using Models.Teacher;
+using Models.Student;
+using Utilities.Formats;
+using Services.StudentOperations;
+using Services.TeacherOperations;
+using Interfaces.IOperations;
+using System.Net.Http.Headers;
+namespace Program
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             Formats format = new Formats();
-            StudentOperations studentOperations = new StudentOperations();
+            IOperations<Student> studentOperations = new StudentOperations();
+            IOperations<Teacher> teacherOperations = new TeacherOperations();
+
             List<Student> students_list = studentOperations.ReadFile();
+            List<Teacher> teachers_list = teacherOperations.ReadFile();
             format.HeaderLine();
             format.Header("Student Management System");
             format.HeaderLine();
@@ -23,7 +33,7 @@ namespace Name
                 {
                     case 1:
                         {
-                            Student student = studentOperations.AddStudent();
+                            Student student = (Student)studentOperations.Add();
 
                             students_list.Add(student);// Add the new student to the list of students
                             studentOperations.SaveToFile(students_list);// Save the updated list of students to the file
@@ -32,8 +42,18 @@ namespace Name
                             break;
                         }
                     case 2:
+                        {
+                            Teacher teacher = (Teacher)teacherOperations.Add();
+
+                            teachers_list.Add(teacher);// Add the new student to the list of students
+                            teacherOperations.SaveToFile(teachers_list);// Save the updated list of students to the file
+                            Console.WriteLine("Teacher added successfully.");
+                            format.continuePrompt();
+                            break;
+                        }
+                    case 3:
                         format.Header("Student List");
-                        Console.WriteLine($"{"ID",-8} {"Name",-20} {"Marks",-6}");// Print the header for the student list with proper formatting
+                        Console.WriteLine($"{"ID",-12} {"Name",-30} {"Email",-30}{"Marks",-8}");// Print the header for the student list with proper formatting
                         format.HeaderLine();// Print a line to separate the header from the student data
                         students_list.Clear();// it prevent ambiguity of data.
                         students_list = studentOperations.ReadFile();// it will assign returned data to student_list
@@ -43,12 +63,25 @@ namespace Name
                         }
                         format.continuePrompt();
                         break;
-                    case 3:
-                        format.Header("Class Statistics");
-                        studentOperations.classStatistics(students_list);// Call the classStatistics method to display statistics about the class based on the list of students
+                    case 4:
+                        format.Header("Teacher List");
+                        Console.WriteLine($"{"ID",-12} {"Name",-30} {"Email",-30} {"Grade",-8}");// Print the header for the student list with proper formatting
+                        format.HeaderLine();// Print a line to separate the header from the student data
+                        teachers_list.Clear();// it prevent ambiguity of data.
+                        teachers_list = teacherOperations.ReadFile();// it will assign returned data to student_list
+                        foreach (var TeacherData in teachers_list)// Loop through the list of students and print their details
+                        {
+                            Console.WriteLine(TeacherData.ToString());// Print the details of each student using the ToString() method of the Student class
+                        }
                         format.continuePrompt();
                         break;
-                    case 4:
+                    case 5:
+                        StudentOperations sOp = new StudentOperations();
+                        format.Header("Class Statistics");
+                        sOp.ClassStatistics(students_list);// Call the classStatistics method to display statistics about the class based on the list of students
+                        format.continuePrompt();
+                        break;
+                    case 6:
                         format.Exit();// Call the Exit method to exit the program
                         return;
                     default:
