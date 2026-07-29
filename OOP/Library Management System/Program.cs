@@ -4,8 +4,8 @@ using LibraryManagementSystem.Interfaces;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.LibraryItems;
 using LibraryManagementSystem.Services;
-using LibraryManagementSystem.Services.LibraryServices;
-using LibraryManagementSystem.Services.LibraryServices.AddItem;
+using LibraryManagementSystem.IO_Operations.WriteItem;
+using LibraryManagementSystem.IO_Operations.AddItem;
 
 namespace Name
 {
@@ -33,8 +33,6 @@ namespace Name
             Console.WriteLine("\nThese properties came from Items (Parent Class).");
 
             Pause();
-
-
             Header("2) INTERFACE DEMO");
 
             Console.WriteLine("Creating objects using ILibraryItem reference...\n");
@@ -49,7 +47,6 @@ namespace Name
             Console.WriteLine("  ReturnItem()");
 
             Pause();
-
             ILibraryItem dvdItem =
                 new DVD("GTA IV", 690, "D001");
 
@@ -124,11 +121,9 @@ namespace Name
 
                 Pause();
             }
-
             Console.Clear();
-
             Console.WriteLine("========================================");
-            Console.WriteLine("WHAT JUST HAPPENED?");
+            Console.WriteLine("WHAT HAPPENED?");
             Console.WriteLine("========================================\n");
 
             Console.WriteLine("Book     -> Book's IssueItem()");
@@ -156,27 +151,20 @@ namespace Name
             Pause();
 
             Console.Clear();
-
             Console.WriteLine("Adding DVD...");
             service.AddItem(
                 new DVD("C++ Tutorial", 90, "D003")
             );
             Console.WriteLine("DVD added.");
-
             Pause();
-
             Console.Clear();
-
             Console.WriteLine("Adding Magzines...");
             service.AddItem(
                 new Magzines(50, "Science Weekly", "M003")
             );
             Console.WriteLine("Magzines added.");
-
             Pause();
-
             Console.Clear();
-
             Console.WriteLine("Adding ResearchPaper...");
             service.AddItem(
                 new ResearchPaper(
@@ -186,12 +174,9 @@ namespace Name
                 )
             );
             Console.WriteLine("ResearchPaper added.");
-
             Console.WriteLine("\nDifferent objects injected into");
             Console.WriteLine("the same LibraryService.");
-
             Pause();
-
             Header("5) WRITE TO FILE");
 
             var writer = new WriteFile();
@@ -205,9 +190,7 @@ namespace Name
                 )
             );
             Console.WriteLine("Book written to file.");
-
             Pause();
-
             Console.Clear();
 
             Console.WriteLine("Writing DVD...");
@@ -215,9 +198,7 @@ namespace Name
                 new DVD("C# Essentials", 95, "D004")
             );
             Console.WriteLine("DVD written to file.");
-
             Pause();
-
             Console.Clear();
 
             Console.WriteLine("Writing Magzines...");
@@ -225,9 +206,7 @@ namespace Name
                 new Magzines(42, "Science Monthly", "M004")
             );
             Console.WriteLine("Magzines written to file.");
-
             Pause();
-
             Console.Clear();
 
             Console.WriteLine("Writing Newspaper...");
@@ -237,10 +216,7 @@ namespace Name
             Console.WriteLine("Newspaper written to file.");
 
             Console.WriteLine("\nAll objects have been written to file.");
-
             Pause();
-
-
             Header("6) READ FROM FILE");
 
             Console.WriteLine("Reading objects from file...\n");
@@ -265,8 +241,6 @@ namespace Name
 
                 Pause();
             }
-
-
             Header("DEMO COMPLETE");
 
             Console.WriteLine("Inheritance       ");
@@ -278,8 +252,6 @@ namespace Name
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
         }
-
-
         static void Header(string name)
         {
             Console.Clear();
@@ -290,8 +262,6 @@ namespace Name
             Console.WriteLine("========================================");
             Console.WriteLine();
         }
-
-
         static void Pause()
         {
             Console.WriteLine();

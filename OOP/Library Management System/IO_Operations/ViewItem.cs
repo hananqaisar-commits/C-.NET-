@@ -5,7 +5,7 @@ using LibraryManagementSystem.Interfaces;
 using LibraryManagementSystem.Models;
 using LibraryManagementSystem.Models.LibraryItems;
 
-namespace LibraryManagementSystem.Services.LibraryServices.AddItem;
+namespace LibraryManagementSystem.IO_Operations.AddItem;
 
 public class ViewItem
 {
