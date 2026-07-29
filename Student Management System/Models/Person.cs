@@ -18,5 +18,10 @@ public abstract class Person
         Id = "Unknown";
         Email = "0";
     }
-    public abstract void DisplayInfo();
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"ID: {Id}");
+        Console.WriteLine($"Name: {Name}");
+        Console.WriteLine($"Email: {Email}");
+    }
 }

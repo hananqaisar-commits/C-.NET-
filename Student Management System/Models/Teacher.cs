@@ -10,9 +10,7 @@ public class Teacher : Person
     }
     public override void DisplayInfo()
     {
-        Console.WriteLine($"ID: {Id}");
-        Console.WriteLine($"Name: {Name}");
-        Console.WriteLine($"Email: {Email}");
+        base.DisplayInfo();
         Console.WriteLine($"Grade: {Grade}");
     }
     public string ToFile()//use to write into file
