@@ -2,6 +2,9 @@
 using Subscriber.User;
 using Player.MusicPlayer;
 using System.Threading.Tasks;
+using Notification.EmailNotification;
+using Extensions.ValidAction;
+
 
 namespace Interactive_Music_Player_Application;
 
@@ -16,6 +19,9 @@ public class Program
         Console.WriteLine("===========================================\n");
 
         MusicPlayer musicPlayer = new MusicPlayer();
+
+        EmailNotification emailNotification = new EmailNotification();
+        emailNotification.NotificationEvent += emailNotification.DisplayNotification;
 
         Action();
         User hanan = new User("Hanan");
@@ -56,47 +62,40 @@ public class Program
             Console.Write("Song Name: ");
             string? songName = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(songName))
+            if (songName.IsValidSongInput())
             {
+                switch (action)
+                {
+                    case "play":
+                        Console.WriteLine($" Playing '{songName}'...");
+                        musicPlayer.Play(songName);
+                        break;
+
+                    case "pause":
+                        Console.WriteLine($" Pausing '{songName}'...");
+                        musicPlayer.Pause(songName);
+                        break;
+
+                    case "skip":
+                        Console.WriteLine($" Skipping '{songName}'...");
+                        musicPlayer.Skipped(songName);
+                        break;
+
+                    case "stop":
+                        Console.WriteLine($" Stopping '{songName}'...");
+                        musicPlayer.Stop(songName);
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Action!");
+                        break;
+                }
+            }
+
+            else
                 Console.WriteLine("Song name cannot be empty!");
-                Action();
-                Console.Clear();
-                Console.WriteLine("===========================================");
-                Console.WriteLine("       Interactive Music Player  ");
-                Console.WriteLine("===========================================\n");
-                continue;
-            }
 
-            Console.WriteLine();
 
-            switch (action)
-            {
-                case "play":
-                    Console.WriteLine($" Playing '{songName}'...");
-                    musicPlayer.Play(songName);
-                    break;
-
-                case "pause":
-                    Console.WriteLine($" Pausing '{songName}'...");
-                    musicPlayer.Pause(songName);
-                    break;
-
-                case "skip":
-                    Console.WriteLine($" Skipping '{songName}'...");
-                    musicPlayer.Skipped(songName);
-                    break;
-
-                case "stop":
-                    Console.WriteLine($" Stopping '{songName}'...");
-                    musicPlayer.Stop(songName);
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid Action!");
-                    break;
-            }
-
-            Action();
 
             Console.WriteLine("===========================================");
             Console.WriteLine("       Interactive Music Player  ");
@@ -105,7 +104,6 @@ public class Program
     }
     static void Action()
     {
-        Task.Delay(1000);
         Console.WriteLine("\nPress any key to continue...\n");
         Console.ReadKey();
     }
