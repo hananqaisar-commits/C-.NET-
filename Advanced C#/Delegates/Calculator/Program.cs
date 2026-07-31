@@ -6,7 +6,6 @@ public class Program
 {
     delegate double DelegateOperation(double x, double y);
     delegate void DelegatePrint(string name);
-
     public static void Main(string[] args)
     {
         Console.WriteLine("======================================");
@@ -19,7 +18,6 @@ public class Program
         Break();
         // Delegate storing method references
         Console.WriteLine(">> Delegate → Method Reference\n");
-
         DelegateOperation opr;
 
         opr = Add;
