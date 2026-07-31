@@ -6,7 +6,6 @@ using Notification.EmailNotification;
 using Extensions.ValidAction;
 using System.Runtime.InteropServices;
 
-
 namespace Interactive_Music_Player_Application;
 
 public class Program
