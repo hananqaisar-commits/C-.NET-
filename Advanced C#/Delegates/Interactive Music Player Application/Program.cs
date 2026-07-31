@@ -4,6 +4,7 @@ using Player.MusicPlayer;
 using System.Threading.Tasks;
 using Notification.EmailNotification;
 using Extensions.ValidAction;
+using System.Runtime.InteropServices;
 
 
 namespace Interactive_Music_Player_Application;
@@ -50,22 +51,28 @@ public class Program
         {
             Console.WriteLine("-------------------------------------------");
             Console.Write("Action (play, pause, skip, stop, exit): ");
-
             string? action = Console.ReadLine()?.ToLower();
 
-            if (action == "exit")
+            if (action.IsValidMusicPlayerAction())//if it receive false it will convert it inot true, it mean action is not valid
             {
-                Console.WriteLine("\nClosing Music Player...");
-                break;
+                Console.WriteLine("Invalid action (Caught from Extension Method)");
+                continue;
             }
 
+            if (action == "Exit".ToLower())
+            {
+                Console.WriteLine("Closing Music Player!");
+                break;
+            }
             Console.Write("Song Name: ");
             string? songName = Console.ReadLine();
+
 
             if (songName.IsValidSongInput())
             {
                 switch (action)
                 {
+
                     case "play":
                         Console.WriteLine($" Playing '{songName}'...");
                         musicPlayer.Play(songName);
@@ -87,7 +94,8 @@ public class Program
                         break;
 
                     default:
-                        Console.WriteLine("Invalid Action!");
+
+                        Console.WriteLine("Invalid Action!(From Switch Default's Statement)");
                         break;
                 }
             }
