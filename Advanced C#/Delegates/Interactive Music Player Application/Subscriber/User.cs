@@ -4,7 +4,7 @@ namespace Subscriber.User;
 
 public class User
 {
-    public string Name { get; set; } = "";
+    public string Name { get; set; }
     public User(string Name)
     {
         this.Name = Name;
