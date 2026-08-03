@@ -25,6 +25,16 @@ List<Person> allPersons = new()
     {
         Name = "Ali Hamza",
         Age = 19,
+    },
+    new Person
+    {
+        Name = "Hassan Dar",
+        Age = 14,
+    },
+    new Person
+    {
+        Name = "Ali Hassan",
+        Age = 19,
     }
 };
 
@@ -44,8 +54,6 @@ Console.WriteLine("\n==========================================");
 Console.WriteLine("             PERSON FILTER");
 Console.WriteLine("==========================================");
 
-Console.Write("\nEnter Regex Pattern: ");
-string pattern = Console.ReadLine()!;
 
 Console.Write("Enter Minimum Age: ");
 int minAge = int.Parse(Console.ReadLine()!);
@@ -59,7 +67,9 @@ string containsText = Console.ReadLine()!;
 Console.Write("Enter Starting Letter(s): ");
 string prefix = Console.ReadLine()!;
 
-Console.WriteLine("\nFilter by Regex Pattern");
+string pattern = @"^H\w+\s+\w+r$";//Regex Pattern, it is also used in databases
+
+Console.WriteLine(@"\nFilter by Regex Pattern (Pattern: ^H\w+\s+\w+r$)");
 Console.WriteLine("------------------------------------------");
 foreach (var person in filter.GetByNamePattern(allPersons, pattern))
     Console.WriteLine(person);
