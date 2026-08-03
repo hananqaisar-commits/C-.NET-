@@ -1,18 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Models.Person;
+using System.Text.RegularExpressions;
+using Interface.IHasPersonInfo;
 
 namespace Queries.Filter;
 
 public class Filter
 {
-    public List<Person> ByAge(List<Person> list) =>
-
+    public List<T> GetAdults<T>(List<T> list)
+        where T : IHasPersonInfo =>
         list.Where(p => p.Age >= 18).ToList();
 
+    public List<T> GetByAgeRange<T>(List<T> list, int minAge, int maxAge)
+        where T : IHasPersonInfo =>
+        list.Where(p => p.Age >= minAge && p.Age <= maxAge).ToList();
 
-    public List<Person> BySalary(List<Person> list) =>
-     list.Where(p => p.Salary >= 90000).ToList();
+    public List<T> GetByNamePattern<T>(List<T> list, string pattern)
+        where T : IHasPersonInfo =>
+        list.Where(p => Regex.IsMatch(p.Name, pattern)).ToList();
 
+    public List<T> GetByNameStartsWith<T>(List<T> list, string prefix)
+        where T : IHasPersonInfo =>
+        list.Where(p => p.Name.StartsWith(prefix)).ToList();
+
+    public List<T> GetByNameContains<T>(List<T> list, string text)
+        where T : IHasPersonInfo =>
+        list.Where(p => p.Name.Contains(text)).ToList();
 }
