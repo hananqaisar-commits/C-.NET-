@@ -1,15 +1,15 @@
 using System;
-
+using Interface.IHasPersonInfo;
 namespace Models.Person;
 
-public class Person
+public class Person : IHasPersonInfo
 {
     public string? Name { get; set; }
-    public double Salary { get; set; }
     public int Age { get; set; }
+
 
     public override string ToString()
     {
-        return $"{Name,-40} | {Salary:F2} | {Age,-10}";
+        return $"{Name,-40} |{Age,-10}";
     }
 }
