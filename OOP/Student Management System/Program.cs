@@ -6,6 +6,9 @@ using Services.StudentOperations;
 using Services.TeacherOperations;
 using Interfaces.IOperations;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
+using Reflection.Inspection;
+using System.Reflection;
 
 namespace Program
 {
@@ -85,6 +88,34 @@ namespace Program
 
                         break;
                     case 6:
+                        Assembly assembly = Assembly.GetExecutingAssembly();
+                        var classType = assembly.GetTypes().Where(t => t.IsClass).ToArray();
+                        Console.WriteLine(" All classes available for Inspection (select by name only):-\n");
+                        int count = 0;
+                        int selectedOption = -1;
+                        while (selectedOption != 0)
+                        {
+                            foreach (Type type in classType)
+                            {
+                                Console.WriteLine($"\t{count += 1} ->  {type.Name}");
+                            }
+                            Console.WriteLine("0 -> Exit");
+                            Console.Write("\nEnter class number to inspect relevent class: ");
+                            if (int.TryParse(Console.ReadLine(), out selectedOption))
+                            {
+                                if (selectedOption == 0)
+                                    break;
+                                if (selectedOption >= 1 && selectedOption <= classType.Count())
+                                {
+                                    Type type = classType[selectedOption - 1];
+                                    Inspection.ToBeInspected(type);
+                                    count = 0;//again count will 0 from here
+                                }
+                            }
+
+                        }
+                        break;
+                    case 7:
                         Formats.Exit();// Call the Exit method to exit the program
                         return;
                     default:
