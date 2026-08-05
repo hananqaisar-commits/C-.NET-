@@ -36,7 +36,8 @@ public class Formats
         Console.WriteLine("3. View Students");
         Console.WriteLine("4. View Teachers");
         Console.WriteLine("5. Class Statistics");
-        Console.WriteLine("6. Exit");
+        Console.WriteLine("6. Inspection");
+        Console.WriteLine("7. Exit");
         HeaderLine();//function used here to print a line after the menu
         Console.WriteLine("Enter your choice: ");
 
