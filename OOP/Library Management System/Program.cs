@@ -6,6 +6,7 @@ using LibraryManagementSystem.Models.LibraryItems;
 using LibraryManagementSystem.Services;
 using LibraryManagementSystem.IO_Operations.WriteItem;
 using LibraryManagementSystem.IO_Operations.AddItem;
+using Microsoft.VisualBasic;
 
 namespace Name
 {
@@ -13,6 +14,7 @@ namespace Name
     {
         public static void Main(string[] args)
         {
+
             Console.Title = "Library Management System - OOP Demo";
 
 
@@ -88,10 +90,10 @@ namespace Name
 
             ILibraryItem[] allItems =
             {
-                bookPly,
-                dvdPly,
-                magPly
-            };
+                        bookPly,
+                        dvdPly,
+                        magPly
+                    };
 
             Borrower user = new Borrower("Hanan Qaisar");
 
