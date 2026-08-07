@@ -12,9 +12,7 @@ static void count()
         {
             dict[ch] = dict.GetValueOrDefault(ch) + 1;
         }
-
     }
-
     foreach (var item in dict)
     {
         Console.WriteLine($"{item.Key} : {item.Value}");
