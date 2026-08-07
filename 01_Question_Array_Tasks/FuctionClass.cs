@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using System.Linq;
 
 namespace _01_Question_Array_Tasks
@@ -109,5 +110,20 @@ namespace _01_Question_Array_Tasks
             int secondMax = ArraySecondLargest(separatedDigits);
             return max * secondMax;
         }
+        public int[] TwoSum(int[] nums, int target)
+        {
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                for (int j = i + 1; j < nums.Length; j++)
+                {
+                    if (nums[i] + nums[j] == target)
+                        return new int[] { i, j };
+                }
+            }
+            return new int[] { };
+
+        }
+
     }
 }
