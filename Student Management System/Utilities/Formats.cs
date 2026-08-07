@@ -1,0 +1,74 @@
+using System;
+namespace Utilities.Formats;
+
+public class Formats
+{
+    public static void Header(String name)// It will print the header for the given name with proper formatting.
+    {
+        Console.WriteLine("\n================================ " + name + " ================================");
+    }
+    public static void HeaderLine()
+    {
+        Console.WriteLine("\n-------------------------------------------------------------------------------");
+    }
+    public static void Loading(String loadingContext)
+    {
+        Console.WriteLine($"{loadingContext}...");
+    }
+
+    public static void Exit()// It will print the exit message when the user chooses to exit the program.
+    {
+        Console.WriteLine("\nThank you for using");
+        Console.WriteLine("School Management System");
+        Console.WriteLine("Good Bye!");
+    }
+
+
+    public static void HeaderTexts()
+    {
+        Console.WriteLine($"{"ID",-8} {"Name",-20} {"Marks",-6}");
+    }
+
+
+    static void ShowMainMenu()
+    {
+        Console.Clear();
+
+        Console.WriteLine("========== Student Management ==========\n");
+
+        Console.WriteLine("Students");
+        Console.WriteLine("1. Add Student");
+        Console.WriteLine("2. Delete Student");
+        Console.WriteLine("3. Update Student");
+        Console.WriteLine("4. Search Student by Name");
+        Console.WriteLine("5. Search Student by Starting Letter(s)");
+        Console.WriteLine("6. Search Students by Age Range");
+        Console.WriteLine("7. View All Students");
+        Console.WriteLine();
+
+        Console.WriteLine("Teachers");
+        Console.WriteLine("8. Add Teacher");
+        Console.WriteLine("9. Delete Teacher");
+        Console.WriteLine("10. Update Teacher");
+        Console.WriteLine("11. Search Teacher by Name");
+        Console.WriteLine("12. Search Teachers by Starting Letter(s)");
+        Console.WriteLine("13. View All Teachers");
+        Console.WriteLine();
+
+        Console.WriteLine("Reports");
+        Console.WriteLine("14. Class Statistics");
+        Console.WriteLine("15. Reflection Inspection");
+        Console.WriteLine();
+
+        Console.WriteLine("0. Exit");
+
+        Console.Write("\nEnter your choice: ");
+    }
+
+
+    public static void continuePrompt()// It will prompt the user to press any key to continue after performing an action.
+    {
+        Console.WriteLine("\nPress any key to continue...");
+        Console.ReadKey();// Wait for the user to press a key before continuing
+    }
+}
