@@ -45,6 +45,13 @@ namespace _01_Question_Array_Tasks
 
             practice.PrintArrayAverage(array);
             Console.WriteLine($"Ans: {practice.MaxProduct(534)}");
+
+
+
+            int[] num = practice.TwoSum(new int[] { 1, 2, 3, 4, 5 }, 6);
+
+            Console.Write($"Target was: 6 and matching index is: {num[0]} and {num[1]}");
+
         }
     }
 }
