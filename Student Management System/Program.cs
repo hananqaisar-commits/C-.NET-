@@ -15,8 +15,13 @@ namespace Program
         public static void Main(string[] args)
         {
             IOperations<Student> studentOperations = new StudentOperations();
-            List<Student> studentList = new List<Student>();
+            List<Student> studentList = studentOperations.ReadFile();
             Dictionary<string, Student> studentsDictionary = new Dictionary<string, Student>();
+
+            foreach (var student in studentList)
+            {
+                studentsDictionary.Add(student.Id, student);
+            }
             Formats.Header("Student Management System");
             Formats.HeaderLine();
 
@@ -132,7 +137,7 @@ namespace Program
                             Assembly assembly = Assembly.GetExecutingAssembly();
                             var classType = assembly
                                 .GetTypes()
-                                .Where(t => t.IsClass)
+                                .Where(t => t.IsClass && !t.Name.StartsWith("<>"))
                                 .ToArray();
 
                             Console.WriteLine("All classes available for Inspection (select by name only):-\n");
