@@ -341,12 +341,5 @@ namespace Program
                 Console.WriteLine($"{student.Key}  ->   {student.Value.Detail()}");
             }
         }
-        static void ChoiceToUpdateStudent(Dictionary<string, Student> studentDict)
-        {
-            foreach (var student in studentDict)
-            {
-                Console.WriteLine($"{student.Key}  ->   {student.Value.Detail()}");
-            }
-        }
     }
 }

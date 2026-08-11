@@ -27,8 +27,7 @@ public class Filter
             .ToDictionary(s => s.Key, s => s.Value);
 
     public static Dictionary<string, Student> DelStudentById(
-        Dictionary<string, Student> studentDictionary,
-        string Id)
+        Dictionary<string, Student> studentDictionary, string Id)
     {
         if (studentDictionary.ContainsKey(Id))
         {
@@ -55,70 +54,71 @@ public class Filter
             Console.WriteLine("4. All");
             Console.Write("Enter choice: ");
 
-            int choice = int.Parse(Console.ReadLine()!);
-
-            switch (choice)
+            if (int.TryParse(Console.ReadLine(), out int choice))
             {
-                case 1:
-                    Console.Write("Enter name: ");
-                    string Name = Console.ReadLine()!;
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Enter name: ");
+                        string Name = Console.ReadLine()!;
 
-                    student.Name = Name;
-                    break;
+                        student.Name = Name;
+                        break;
 
-                case 2:
-                    Console.Write("Enter Email: ");
-                    string Email = Console.ReadLine()!;
+                    case 2:
+                        Console.Write("Enter Email: ");
+                        string Email = Console.ReadLine()!;
 
-                    student.Email = Email;
-                    break;
+                        student.Email = Email;
+                        break;
 
-                case 3:
-                    Console.Write("Enter marks: ");
+                    case 3:
+                        Console.Write("Enter marks: ");
 
-                    if (double.TryParse(
-                        Console.ReadLine(),
-                        out double Marks))
-                    {
-                        Console.WriteLine($"Marks: {Marks}");
-                        student.Marks = Marks;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid marks!");
-                    }
+                        if (double.TryParse(
+                            Console.ReadLine(),
+                            out double Marks))
+                        {
+                            Console.WriteLine($"Marks: {Marks}");
+                            student.Marks = Marks;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid marks!");
+                        }
 
-                    break;
+                        break;
 
-                case 4:
-                    Console.Write("Enter name: ");
-                    string NameAll = Console.ReadLine()!;
+                    case 4:
+                        Console.Write("Enter name: ");
+                        string NameAll = Console.ReadLine()!;
 
-                    Console.Write("Enter Email: ");
-                    string EmailAll = Console.ReadLine()!;
+                        Console.Write("Enter Email: ");
+                        string EmailAll = Console.ReadLine()!;
 
-                    Console.Write("Enter marks: ");
+                        Console.Write("Enter marks: ");
 
-                    if (double.TryParse(
-                        Console.ReadLine(),
-                        out double MarksAll))
-                    {
-                        Console.WriteLine($"Marks: {MarksAll}");
+                        if (double.TryParse(
+                            Console.ReadLine(),
+                            out double MarksAll))
+                        {
+                            Console.WriteLine($"Marks: {MarksAll}");
 
-                        student.Name = NameAll;
-                        student.Email = EmailAll;
-                        student.Marks = MarksAll;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid marks!");
-                    }
+                            student.Name = NameAll;
+                            student.Email = EmailAll;
+                            student.Marks = MarksAll;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid marks!");
+                        }
 
-                    break;
+                        break;
 
-                default:
-                    Console.WriteLine("Invalid choice.");
-                    break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
             }
         }
         else
