@@ -2,6 +2,20 @@
 ---
 A simple console-based application to manage student records — add students, save/load data from a file, and view class statistics (highest, lowest, average marks).
 
+
+## Topics Covered
+- [x] Object-Oriented Programming (OOP)
+- [x] Interfaces & Abstraction
+- [x] Collections & LINQ
+- [x] Delegates, Events & Lambda Expressions
+- [x] Extension Methods
+- [x] Reflection & Runtime Inspection
+- [x] Attributes
+- [x] File Handling & Data Management
+- [x] Exception Handling
+- [x] Debugging & Code Organization
+- [ ] Database Integration
+- [ ] API Integration
 ## Directory Structure
 ```
 .
