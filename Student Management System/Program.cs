@@ -1,5 +1,4 @@
-﻿using Models.Person;
-using Models.Student;
+﻿using Models.Student;
 using Utilities.Formats;
 using Services.StudentOperations;
 using Interfaces.IOperations;
@@ -69,8 +68,12 @@ namespace Program
                         {
                             studentsDictionary.Add(student.Id, student);
                         }
+                        Formats.HeaderLine();
+                        ShowStudentID(studentsDictionary);
+
                         Console.Write("Enter ID to Delete: ");
                         string IdToDel = Console.ReadLine()!;
+
                         Formats.HeaderLine();
                         var resultAfterDel = Filter.DelStudentById(studentsDictionary, IdToDel);
                         studentList.Clear();
@@ -92,8 +95,11 @@ namespace Program
                             studentsDictionary.Add(student.Id, student);
                         }
 
+                        Formats.HeaderLine();
+                        ShowStudentID(studentsDictionary);
                         Console.Write("Enter ID to Update: ");
                         string IdToUpdate = Console.ReadLine()!;
+
                         Formats.HeaderLine();
                         if (IdToUpdate != null)
                         {
@@ -121,8 +127,11 @@ namespace Program
                         {
                             studentsDictionary.Add(student.Id, student);
                         }
+                        Formats.HeaderLine();
+                        ShowStudentID(studentsDictionary);
                         Console.Write("Enter ID to Search: ");
                         string Id = Console.ReadLine()!;
+
                         Formats.HeaderLine();
                         if (Id != null)
                         {
@@ -274,7 +283,7 @@ namespace Program
                             Assembly assembly = Assembly.GetExecutingAssembly();
                             var classType = assembly
                                 .GetTypes()
-                                .Where(t => t.IsClass)
+                                .Where(t => t.IsClass && !t.Name.StartsWith("<>"))
                                 .ToArray();
 
                             Console.WriteLine("All classes available for Inspection (select by name only):-\n");
@@ -323,6 +332,20 @@ namespace Program
                         Formats.continuePrompt();
                         break;
                 }
+            }
+        }
+        static void ShowStudentID(Dictionary<string, Student> studentDict)
+        {
+            foreach (var student in studentDict)
+            {
+                Console.WriteLine($"{student.Key}  ->   {student.Value.Detail()}");
+            }
+        }
+        static void ChoiceToUpdateStudent(Dictionary<string, Student> studentDict)
+        {
+            foreach (var student in studentDict)
+            {
+                Console.WriteLine($"{student.Key}  ->   {student.Value.Detail()}");
             }
         }
     }

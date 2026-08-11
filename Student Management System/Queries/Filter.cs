@@ -4,18 +4,31 @@ using Models.Student;
 
 public class Filter
 {
-    public static List<Student> SearchByMarksRange(List<Student> studentList, int min, int max) =>
+    public static List<Student> SearchByMarksRange(
+        List<Student> studentList,
+        int min,
+        int max) =>
+        studentList
+            .Where(s => s.Marks >= min && s.Marks <= max)
+            .ToList();
 
-      studentList.Where
-      (s => s.Marks >= min && s.Marks <= max).ToList();
-    public static List<Student> GetByNameStartsWith(List<Student> studentList, string prefix) =>
-           studentList.Where(s => s.Name.StartsWith(prefix)).ToList();
-    public static Dictionary<string, Student> GetStudentById(Dictionary<string, Student> studentDictionary, string Id) =>
-    studentDictionary
-        .Where(s => s.Key == Id)
-        .ToDictionary(s => s.Key, s => s.Value);//return dictonary whose key is the studentId and value id the student obj
+    public static List<Student> GetByNameStartsWith(
+        List<Student> studentList,
+        string prefix) =>
+        studentList
+            .Where(s => s.Name.StartsWith(prefix))
+            .ToList();
 
-    public static Dictionary<string, Student> DelStudentById(Dictionary<string, Student> studentDictionary, string Id)
+    public static Dictionary<string, Student> GetStudentById(
+        Dictionary<string, Student> studentDictionary,
+        string Id) =>
+        studentDictionary
+            .Where(s => s.Key == Id)
+            .ToDictionary(s => s.Key, s => s.Value);
+
+    public static Dictionary<string, Student> DelStudentById(
+        Dictionary<string, Student> studentDictionary,
+        string Id)
     {
         if (studentDictionary.ContainsKey(Id))
         {
@@ -23,36 +36,96 @@ public class Filter
         }
         else
             Console.WriteLine("ID not exist");
+
         return studentDictionary;
     }
-    public static Dictionary<string, Student> UpdateStudentById(Dictionary<string, Student> studentDictionary, string Id)
+
+    public static Dictionary<string, Student> UpdateStudentById(
+        Dictionary<string, Student> studentDictionary,
+        string Id)
     {
         if (studentDictionary.ContainsKey(Id))
         {
-            Student student = studentDictionary[Id];//ab dictionary mei is key pr student jo hai usy student onj mei assign kro or value change krna pr dictionary update ho jaye gi
-            Console.Write("Enter name: ");
-            string Name = Console.ReadLine()!;
+            Student student = studentDictionary[Id];
 
-            Console.Write("Enter Email: ");
-            string Email = Console.ReadLine()!;
+            Console.WriteLine("What do you want to update?");
+            Console.WriteLine("1. Name");
+            Console.WriteLine("2. Email");
+            Console.WriteLine("3. Marks");
+            Console.WriteLine("4. All");
+            Console.Write("Enter choice: ");
 
-            Console.Write("Enter marks: ");
-            if (double.TryParse(Console.ReadLine(), out double Marks))
+            int choice = int.Parse(Console.ReadLine()!);
+
+            switch (choice)
             {
-                Console.WriteLine($"Marks: {Marks}");
+                case 1:
+                    Console.Write("Enter name: ");
+                    string Name = Console.ReadLine()!;
+
+                    student.Name = Name;
+                    break;
+
+                case 2:
+                    Console.Write("Enter Email: ");
+                    string Email = Console.ReadLine()!;
+
+                    student.Email = Email;
+                    break;
+
+                case 3:
+                    Console.Write("Enter marks: ");
+
+                    if (double.TryParse(
+                        Console.ReadLine(),
+                        out double Marks))
+                    {
+                        Console.WriteLine($"Marks: {Marks}");
+                        student.Marks = Marks;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid marks!");
+                    }
+
+                    break;
+
+                case 4:
+                    Console.Write("Enter name: ");
+                    string NameAll = Console.ReadLine()!;
+
+                    Console.Write("Enter Email: ");
+                    string EmailAll = Console.ReadLine()!;
+
+                    Console.Write("Enter marks: ");
+
+                    if (double.TryParse(
+                        Console.ReadLine(),
+                        out double MarksAll))
+                    {
+                        Console.WriteLine($"Marks: {MarksAll}");
+
+                        student.Name = NameAll;
+                        student.Email = EmailAll;
+                        student.Marks = MarksAll;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid marks!");
+                    }
+
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    break;
             }
-            else
-            {
-                Console.WriteLine("Invalid marks!");
-                Marks = 0;
-            }
-            student.Name = Name;
-            student.Email = Email;
-            student.Marks = Marks;
+        }
+        else
+        {
+            Console.WriteLine("ID not exist");
         }
 
-        else
-            Console.WriteLine("ID not exist");
         return studentDictionary;
     }
 }

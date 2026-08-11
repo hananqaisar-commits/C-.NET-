@@ -27,4 +27,8 @@ public class Student : Person
     {
         return $"{Id,-12} {Name,-30} {Email,-30} {Marks,-6}";
     }
+    public string Detail()//overriding the ToString method for student objects
+    {
+        return $" {Name,-30} {Email,-30} {Marks,-6}";
+    }
 }
