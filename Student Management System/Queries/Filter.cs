@@ -14,4 +14,13 @@ public class Filter
     studentDictionary
         .Where(s => s.Key == Id)
         .ToDictionary(s => s.Key, s => s.Value);//return dictonary whose key is the studentId and value id the student obj
+
+    public static Dictionary<string, Student> DelStudentById(Dictionary<string, Student> studentDictionary, string Id)
+    {
+        if (studentDictionary.ContainsKey(Id))
+        {
+            studentDictionary.Remove(Id);
+        }
+        return studentDictionary;
+    }
 }
