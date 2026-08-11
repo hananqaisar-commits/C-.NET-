@@ -23,7 +23,7 @@ namespace Program
                 studentsDictionary.Add(student.Id, student);
             }
             Formats.Header("Student Management System");
-            Formats.HeaderLine();
+
 
             while (true)
             {
@@ -57,6 +57,7 @@ namespace Program
                             studentOperations.SaveToFile(studentsDictionary.Values.ToList());
 
                             Console.WriteLine("Student added successfully.");
+                            Formats.HeaderLine();
                             Formats.continuePrompt();
 
                             break;
@@ -70,6 +71,7 @@ namespace Program
                         }
                         Console.Write("Enter ID to Delete: ");
                         string IdToDel = Console.ReadLine()!;
+                        Formats.HeaderLine();
                         var resultAfterDel = Filter.DelStudentById(studentsDictionary, IdToDel);
                         studentList.Clear();
                         foreach (var student in resultAfterDel.Values)
@@ -77,6 +79,7 @@ namespace Program
                             studentList.Add(student);
                         }
                         studentOperations.SaveToFile(studentList);
+                        Formats.HeaderLine();
                         break;
                     case 3:
                         studentList.Clear();
@@ -91,6 +94,7 @@ namespace Program
 
                         Console.Write("Enter ID to Update: ");
                         string IdToUpdate = Console.ReadLine()!;
+                        Formats.HeaderLine();
                         if (IdToUpdate != null)
                         {
                             var resultUpdated = Filter.UpdateStudentById(studentsDictionary, IdToUpdate);
@@ -107,6 +111,7 @@ namespace Program
                         {
                             Console.WriteLine("Invalid");
                         }
+                        Formats.HeaderLine();
                         break;
 
                     case 4:
@@ -118,6 +123,7 @@ namespace Program
                         }
                         Console.Write("Enter ID to Search: ");
                         string Id = Console.ReadLine()!;
+                        Formats.HeaderLine();
                         if (Id != null)
                         {
                             var result = Filter.GetStudentById(studentsDictionary, Id);
@@ -130,12 +136,16 @@ namespace Program
                         {
                             Console.WriteLine("Invalid");
                         }
+                        Formats.HeaderLine();
                         break;
                     case 5:
                         studentList.Clear();
                         studentList = studentOperations.ReadFile();
                         Console.Write("Enter Starting Letter(s): ");
                         string prefix = Console.ReadLine()!;
+                        Formats.HeaderLine();
+                        Console.WriteLine($"{"ID",-12} {"Name",-30} {"Email",-30} {"Marks",-8}");
+                        Formats.HeaderLine();
                         if (prefix != null)
                         {
                             var resultStartingPrefix = Filter.GetByNameStartsWith(studentList, prefix);
@@ -149,34 +159,37 @@ namespace Program
                         {
                             Console.WriteLine("Invalid");
                         }
+                        Formats.HeaderLine();
                         break;
 
                     case 6:
                         studentList.Clear();
                         studentList = studentOperations.ReadFile();
-                        Console.Write("Enter Minimum Age: ");
+                        Console.Write("Enter Minimum marks: ");
 
-                        if (!int.TryParse(Console.ReadLine(), out int minAge))
+                        if (!int.TryParse(Console.ReadLine(), out int minMarks))
                         {
-                            Console.WriteLine("Invalid minimum age.");
+                            Console.WriteLine("Invalid minimum marks.");
                             break;
                         }
+                        Console.Write("Enter Maximum marks: ");
 
-                        Console.Write("Enter Maximum Age: ");
-
-                        if (!int.TryParse(Console.ReadLine(), out int maxAge))
+                        if (!int.TryParse(Console.ReadLine(), out int maxMarks))
                         {
-                            Console.WriteLine("Invalid maximum age.");
+                            Console.WriteLine("Invalid maximum marks.");
                             break;
                         }
-
+                        Formats.HeaderLine();
+                        Console.WriteLine($"{"ID",-12} {"Name",-30} {"Email",-30} {"Marks",-8}");
+                        Formats.HeaderLine();
                         {
-                            var resultAge = Filter.SearchByMarksRange(studentList, minAge, maxAge);
-                            foreach (var student in resultAge)
+                            var resultMarks = Filter.SearchByMarksRange(studentList, minMarks, maxMarks);
+                            foreach (var student in resultMarks)
                             {
                                 Console.WriteLine(student.ToString());
                             }
                         }
+                        Formats.HeaderLine();
                         break;
                     case 7:
                         {
@@ -190,33 +203,82 @@ namespace Program
                             {
                                 studentsDictionary.Add(student.Id, student);
                             }
+                            Formats.HeaderLine();
                             foreach (var StudentData in studentsDictionary.Values)//now print from dictionary
                             {
                                 Console.WriteLine(StudentData.ToString());
                             }
-                            Formats.continuePrompt();
+                            Formats.HeaderLine();
                             break;
                         }
-
                     case 8:
                         {
-                            StudentOperations StudentOP = new StudentOperations();
-                            Formats.Header("Class Statistics");
+                            studentList = studentOperations.ReadFile();
 
-                            StudentOP.ClassStatistics(studentsDictionary.Values.ToList());
+                            var result = Sorting.SortByName(studentList);
+
+                            Formats.Header("Students Sorted by Name");
+
+                            foreach (var student in result)
+                            {
+                                Console.WriteLine(student);
+                            }
+
                             Formats.continuePrompt();
                             break;
                         }
 
                     case 9:
                         {
+                            studentList = studentOperations.ReadFile();
+
+                            var result = Sorting.SortByMarks(studentList);
+
+                            Formats.Header("Students Sorted by Marks");
+
+                            foreach (var student in result)
+                            {
+                                Console.WriteLine(student);
+                            }
+
+                            Formats.continuePrompt();
+                            break;
+                        }
+
+                    case 10:
+                        {
+                            studentList = studentOperations.ReadFile();
+
+                            var result = Sorting.SortById(studentList);
+                            Formats.Header("Students Sorted by ID");
+                            foreach (var student in result)
+                            {
+                                Console.WriteLine(student);
+                            }
+                            Formats.continuePrompt();
+                            break;
+                        }
+
+                    case 11:
+                        {
+                            StudentOperations sOp = new StudentOperations();
+                            studentList = studentOperations.ReadFile();
+                            Formats.Header("Class Statistics");
+                            sOp.ClassStatistics(studentList);
+                            Formats.continuePrompt();
+                            break;
+                        }
+
+                    case 12:
+                        {
                             Assembly assembly = Assembly.GetExecutingAssembly();
                             var classType = assembly
                                 .GetTypes()
-                                .Where(t => t.IsClass && !t.Name.StartsWith("<>"))
+                                .Where(t => t.IsClass)
                                 .ToArray();
 
                             Console.WriteLine("All classes available for Inspection (select by name only):-\n");
+
                             int count = 0;
                             int selectedOption = -1;
 
@@ -226,17 +288,16 @@ namespace Program
                                 {
                                     Console.WriteLine($"\t{count += 1} -> {type.Name}");
                                 }
-
                                 Console.WriteLine("0 -> Exit");
 
                                 Console.Write("\nEnter class number to inspect relevant class: ");
-
                                 if (int.TryParse(Console.ReadLine(), out selectedOption))
                                 {
                                     if (selectedOption == 0)
                                         break;
 
-                                    if (selectedOption >= 1 && selectedOption <= classType.Length)
+                                    if (selectedOption >= 1 &&
+                                        selectedOption <= classType.Length)
                                     {
                                         Type type = classType[selectedOption - 1];
                                         Inspection.ToBeInspected(type);
