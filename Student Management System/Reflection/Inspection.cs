@@ -26,16 +26,16 @@ public class Inspection
 
     private static void PrintBasicInfo(Type type)
     {
-        Console.WriteLine($"Type Name: {type.Name}");
-        Console.WriteLine($"Full Name: {type.FullName}");
-        Console.WriteLine($"Namespace: {type.Namespace}");
-        Console.WriteLine($"Base Type: {type.BaseType?.Name}");
-        Console.WriteLine($"IsClass? {type.IsClass}");
-        Console.WriteLine($"IsAbstract? {type.IsAbstract}");
-        Console.WriteLine($"IsInterface? {type.IsInterface}");
-        Console.WriteLine($"IsEnum? {type.IsEnum}");
-        Console.WriteLine($"IsValueType? {type.IsValueType}");
-        Console.WriteLine($"IsPublic? {type.IsPublic}");
+        Console.WriteLine($"👉  Type Name: {type.Name}");
+        Console.WriteLine($"👉  Full Name: {type.FullName}");
+        Console.WriteLine($"👉  Namespace: {type.Namespace}");
+        Console.WriteLine($"👉  Base Type: {type.BaseType?.Name}");
+        Console.WriteLine($"👉  IsClass? {type.IsClass}");
+        Console.WriteLine($"👉  IsAbstract? {type.IsAbstract}");
+        Console.WriteLine($"👉  IsInterface? {type.IsInterface}");
+        Console.WriteLine($"👉  IsEnum? {type.IsEnum}");
+        Console.WriteLine($"👉  IsValueType? {type.IsValueType}");
+        Console.WriteLine($"👉  IsPublic? {type.IsPublic}");
         Console.WriteLine();
     }
 
@@ -46,7 +46,7 @@ public class Inspection
         var propertiesList = type.GetProperties();
         foreach (var property in propertiesList)
         {
-            Console.WriteLine($"{property.PropertyType.Name} {property.Name}");
+            Console.WriteLine($"    -{property.PropertyType.Name} {property.Name}");
         }
 
         Console.WriteLine();
@@ -59,7 +59,7 @@ public class Inspection
         var attributeList = type.GetCustomAttributes(false);
         foreach (var attribute in attributeList)
         {
-            Console.WriteLine(attribute.GetType().Name);
+            Console.WriteLine($"    -{attribute.GetType().Name}");
         }
 
         Console.WriteLine();
@@ -72,7 +72,7 @@ public class Inspection
         var methodList = type.GetMethods();
         foreach (var method in methodList)
         {
-            Console.WriteLine($"{method.ReturnType.Name} {method.Name}");
+            Console.WriteLine($"    -{method.ReturnType.Name} {method.Name}");
         }
 
         Console.WriteLine();
@@ -85,7 +85,7 @@ public class Inspection
         var interfaceList = type.GetInterfaces();
         foreach (var interfacee in interfaceList)
         {
-            Console.WriteLine(interfacee.Name);
+            Console.WriteLine($"    -{interfacee.Name}");
         }
 
         Console.WriteLine();
@@ -102,7 +102,7 @@ public class Inspection
 
             foreach (var parameter in constructor.GetParameters())
             {
-                Console.WriteLine($"    Parameter: {parameter.ParameterType.Name} {parameter.Name}");
+                Console.WriteLine($"    -Parameter: {parameter.ParameterType.Name} {parameter.Name}");
             }
         }
 
