@@ -31,8 +31,6 @@ foreach (char ch in resultReverse)
     Console.Write(ch);
 }
 
-
-
 static bool IsPalindrome(string strToMatched)
 {
     Stack<char> stack = new Stack<char>();

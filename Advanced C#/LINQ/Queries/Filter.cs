@@ -44,6 +44,4 @@ public class Filter
             list.Remove(del);
         return list;
     }
-
-
 }

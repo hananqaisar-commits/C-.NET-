@@ -1,8 +1,10 @@
 namespace Models.Student;
 
+using System.ComponentModel.DataAnnotations;
 using Models.Person;
 public class Student : Person
 {
+    [Range(1, 100)]
     public double Marks { get; set; }
     public Student() //default constructor
     {

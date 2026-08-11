@@ -30,34 +30,24 @@ public class Formats
     }
 
 
-    static void ShowMainMenu()
+    public static void ShowMainMenu()
     {
         Console.Clear();
 
         Console.WriteLine("========== Student Management ==========\n");
 
-        Console.WriteLine("Students");
         Console.WriteLine("1. Add Student");
         Console.WriteLine("2. Delete Student");
         Console.WriteLine("3. Update Student");
-        Console.WriteLine("4. Search Student by Name");
+        Console.WriteLine("4. Search Student by ID");
         Console.WriteLine("5. Search Student by Starting Letter(s)");
-        Console.WriteLine("6. Search Students by Age Range");
+        Console.WriteLine("6. Search Students by Marks Range");
         Console.WriteLine("7. View All Students");
         Console.WriteLine();
 
-        Console.WriteLine("Teachers");
-        Console.WriteLine("8. Add Teacher");
-        Console.WriteLine("9. Delete Teacher");
-        Console.WriteLine("10. Update Teacher");
-        Console.WriteLine("11. Search Teacher by Name");
-        Console.WriteLine("12. Search Teachers by Starting Letter(s)");
-        Console.WriteLine("13. View All Teachers");
-        Console.WriteLine();
-
         Console.WriteLine("Reports");
-        Console.WriteLine("14. Class Statistics");
-        Console.WriteLine("15. Reflection Inspection");
+        Console.WriteLine("8. Class Statistics");
+        Console.WriteLine("9. Reflection Inspection");
         Console.WriteLine();
 
         Console.WriteLine("0. Exit");

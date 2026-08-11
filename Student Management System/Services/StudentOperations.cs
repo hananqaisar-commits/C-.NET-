@@ -9,18 +9,43 @@ namespace Services.StudentOperations;
 
 public class StudentOperations : IOperations<Student>
 {
-    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "students.txt");
+    string filePath = Path.Combine(
+        Directory.GetCurrentDirectory(),
+        "students.txt"
+    );
+
     Formats format = new Formats();
+
     static int uniqueNumber = 1000;
-    List<Student> students = new List<Student>();
-    public string GenerateID()
+
+    Dictionary<int, Student> studentsDictionary =
+        new Dictionary<int, Student>();
+
+    private string GenerateStudentId()
     {
         string prefix = "STU";
-        return $"{prefix}{++uniqueNumber}";
+
+        while (File.Exists(filePath))
+        {
+            List<Student> students = ReadFile();
+
+            string id = prefix + uniqueNumber;
+
+            if (!students.Any(s => s.Id == id))
+            {
+                uniqueNumber++;
+                return id;
+            }
+
+            uniqueNumber++;
+        }
+
+        return prefix + uniqueNumber++;
     }
+
     public Person Add()
     {
-        string Id = GenerateID();
+        string id = GenerateStudentId();
 
         Console.Write("Enter name: ");
         string Name = Console.ReadLine()!;
@@ -37,10 +62,12 @@ public class StudentOperations : IOperations<Student>
         else
         {
             Console.WriteLine("Invalid marks!");
+            Marks = 0;
         }
 
-        return new Student(Id, Name, Email, Marks);
+        return new Student(id, Name, Email, Marks);
     }
+
     public void SaveToFile(List<Student> students)
     {
         List<string> lines = new List<string>();
@@ -63,18 +90,12 @@ public class StudentOperations : IOperations<Student>
 
     public List<Student> ReadFile()
     {
+        List<Student> students = new List<Student>();
+
         if (!File.Exists(filePath))
         {
             Console.WriteLine("No students.txt found. No students exist.");
-            return new List<Student>();
-        }
-
-        string content = File.ReadAllText(filePath);
-
-        if (content == "")
-        {
-            Console.WriteLine("No student data found.");
-            return new List<Student>();
+            return students;
         }
 
         using (StreamReader reader = new StreamReader(filePath))
@@ -102,13 +123,14 @@ public class StudentOperations : IOperations<Student>
                 double.TryParse(parts[4], out double marks);
 
                 students.Add(
-                    new Student(name, id, email, marks)
+                    new Student(id, name, email, marks)
                 );
             }
         }
 
         return students;
     }
+
     public void ClassStatistics(List<Student> students)
     {
         if (students.Count == 0)
@@ -140,6 +162,4 @@ public class StudentOperations : IOperations<Student>
         Console.WriteLine($"Lowest Marks  : {lowestMarks:F1}");
         Console.WriteLine($"Average Marks : {averageMarks:F2}");
     }
-
-
 }

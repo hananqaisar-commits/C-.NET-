@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 class Program
 {
-
     static List<int> RemoveDuplicates(List<int> list)
     {
         List<int> result = new List<int>();
@@ -14,7 +13,6 @@ class Program
         }
         return result;
     }
-
     static List<int> Merge(List<int> list1, List<int> list2)
     {
         List<int> merged = new List<int>();

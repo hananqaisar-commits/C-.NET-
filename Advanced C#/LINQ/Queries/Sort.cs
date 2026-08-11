@@ -10,7 +10,6 @@ public class Sort
     public List<T> ByAgeAccending<T>(List<T> list) where T : IHasPersonInfo =>
          list.OrderBy(s => s.Age).ToList<T>();
 
-
     public List<K> ByAgeDecending<K>(List<K> list) where K : IHasPersonInfo
 
         => list.OrderByDescending(s => s.Age)
