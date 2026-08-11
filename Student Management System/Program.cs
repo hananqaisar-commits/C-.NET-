@@ -61,6 +61,54 @@ namespace Program
 
                             break;
                         }
+                    case 2:
+                        studentsDictionary.Clear();
+                        studentList = studentOperations.ReadFile();
+                        foreach (var student in studentList)
+                        {
+                            studentsDictionary.Add(student.Id, student);
+                        }
+                        Console.Write("Enter ID to Delete: ");
+                        string IdToDel = Console.ReadLine()!;
+                        var resultAfterDel = Filter.DelStudentById(studentsDictionary, IdToDel);
+                        studentList.Clear();
+                        foreach (var student in resultAfterDel.Values)
+                        {
+                            studentList.Add(student);
+                        }
+                        studentOperations.SaveToFile(studentList);
+                        break;
+                    case 3:
+                        studentList.Clear();
+                        studentList = studentOperations.ReadFile();
+
+                        studentsDictionary.Clear();
+
+                        foreach (var student in studentList)
+                        {
+                            studentsDictionary.Add(student.Id, student);
+                        }
+
+                        Console.Write("Enter ID to Update: ");
+                        string IdToUpdate = Console.ReadLine()!;
+                        if (IdToUpdate != null)
+                        {
+                            var resultUpdated = Filter.UpdateStudentById(studentsDictionary, IdToUpdate);
+                            studentList.Clear();
+
+                            foreach (var student in resultUpdated)
+                            {
+                                studentList.Add(student.Value);
+                            }
+
+                            studentOperations.SaveToFile(studentList);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid");
+                        }
+                        break;
+
                     case 4:
                         studentsDictionary.Clear();
                         studentList = studentOperations.ReadFile();
@@ -70,10 +118,17 @@ namespace Program
                         }
                         Console.Write("Enter ID to Search: ");
                         string Id = Console.ReadLine()!;
-                        var result = Filter.GetStudentById(studentsDictionary, Id);
-                        foreach (var student in result.Values)
+                        if (Id != null)
                         {
-                            Console.WriteLine(student);
+                            var result = Filter.GetStudentById(studentsDictionary, Id);
+                            foreach (var student in result.Values)
+                            {
+                                Console.WriteLine(student);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid");
                         }
                         break;
                     case 5:
@@ -81,11 +136,18 @@ namespace Program
                         studentList = studentOperations.ReadFile();
                         Console.Write("Enter Starting Letter(s): ");
                         string prefix = Console.ReadLine()!;
-                        var resultStartingPrefix = Filter.GetByNameStartsWith(studentList, prefix);
-
-                        foreach (var student in resultStartingPrefix)
+                        if (prefix != null)
                         {
-                            Console.WriteLine(student);
+                            var resultStartingPrefix = Filter.GetByNameStartsWith(studentList, prefix);
+
+                            foreach (var student in resultStartingPrefix)
+                            {
+                                Console.WriteLine(student);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid");
                         }
                         break;
 
@@ -93,13 +155,27 @@ namespace Program
                         studentList.Clear();
                         studentList = studentOperations.ReadFile();
                         Console.Write("Enter Minimum Age: ");
-                        int minAge = int.Parse(Console.ReadLine()!);
-                        Console.Write("Enter Maximum Age: ");
-                        int maxAge = int.Parse(Console.ReadLine()!);
-                        var resultAge = Filter.SearchByMarksRange(studentList, minAge, maxAge);
-                        foreach (var student in resultAge)
+
+                        if (!int.TryParse(Console.ReadLine(), out int minAge))
                         {
-                            Console.WriteLine(student.ToString());
+                            Console.WriteLine("Invalid minimum age.");
+                            break;
+                        }
+
+                        Console.Write("Enter Maximum Age: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int maxAge))
+                        {
+                            Console.WriteLine("Invalid maximum age.");
+                            break;
+                        }
+
+                        {
+                            var resultAge = Filter.SearchByMarksRange(studentList, minAge, maxAge);
+                            foreach (var student in resultAge)
+                            {
+                                Console.WriteLine(student.ToString());
+                            }
                         }
                         break;
                     case 7:
@@ -124,10 +200,10 @@ namespace Program
 
                     case 8:
                         {
-                            StudentOperations sOp = new StudentOperations();
+                            StudentOperations StudentOP = new StudentOperations();
                             Formats.Header("Class Statistics");
 
-                            sOp.ClassStatistics(studentsDictionary.Values.ToList());
+                            StudentOP.ClassStatistics(studentsDictionary.Values.ToList());
                             Formats.continuePrompt();
                             break;
                         }

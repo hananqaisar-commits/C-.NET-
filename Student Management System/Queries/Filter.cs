@@ -21,6 +21,38 @@ public class Filter
         {
             studentDictionary.Remove(Id);
         }
+        else
+            Console.WriteLine("ID not exist");
+        return studentDictionary;
+    }
+    public static Dictionary<string, Student> UpdateStudentById(Dictionary<string, Student> studentDictionary, string Id)
+    {
+        if (studentDictionary.ContainsKey(Id))
+        {
+            Student student = studentDictionary[Id];//ab dictionary mei is key pr student jo hai usy student onj mei assign kro or value change krna pr dictionary update ho jaye gi
+            Console.Write("Enter name: ");
+            string Name = Console.ReadLine()!;
+
+            Console.Write("Enter Email: ");
+            string Email = Console.ReadLine()!;
+
+            Console.Write("Enter marks: ");
+            if (double.TryParse(Console.ReadLine(), out double Marks))
+            {
+                Console.WriteLine($"Marks: {Marks}");
+            }
+            else
+            {
+                Console.WriteLine("Invalid marks!");
+                Marks = 0;
+            }
+            student.Name = Name;
+            student.Email = Email;
+            student.Marks = Marks;
+        }
+
+        else
+            Console.WriteLine("ID not exist");
         return studentDictionary;
     }
 }

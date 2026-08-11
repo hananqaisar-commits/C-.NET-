@@ -7,6 +7,6 @@ public interface IOperations<T>//generic
 {
 
     Person Add();
-    void SaveToFile(List<T> persons);
-    List<T> ReadFile();
+    void SaveToFile(List<Student> persons);
+    List<Student> ReadFile();
 }

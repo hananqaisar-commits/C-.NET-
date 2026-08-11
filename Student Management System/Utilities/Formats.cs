@@ -37,8 +37,8 @@ public class Formats
         Console.WriteLine("========== Student Management ==========\n");
 
         Console.WriteLine("1. Add Student");
-        Console.WriteLine("2. Delete Student");
-        Console.WriteLine("3. Update Student");
+        Console.WriteLine("2. Delete Student by ID");
+        Console.WriteLine("3. Update Student by ID");
         Console.WriteLine("4. Search Student by ID");
         Console.WriteLine("5. Search Student by Starting Letter(s)");
         Console.WriteLine("6. Search Students by Marks Range");
