@@ -25,11 +25,21 @@ else
     Console.WriteLine("Output: Not a Palindrome ");
 
 //To Reverse the string
+
 List<char> resultReverse = Reverse(inputReverse);
 foreach (char ch in resultReverse)
 {
     Console.Write(ch);
 }
+
+
+// Prenthisis Algorithm
+Console.WriteLine("\n\nEnter prenthisis String: ");
+string Pranthsis = Console.ReadLine()!;
+if (IsValidPranthsis(Pranthsis))
+    Console.WriteLine("\nValid Prenthsis");
+else
+    Console.WriteLine("\nInvalid Pranthsis");
 
 static bool IsPalindrome(string strToMatched)
 {
@@ -62,4 +72,39 @@ static List<char> Reverse(string strToReversed)
         reverseStr.Add(stack.Pop());
     }
     return reverseStr;
+}
+
+static bool IsValidPranthsis(string prenthisis)
+{
+    Stack<char> charsStack = new Stack<char>();
+
+    foreach (char ch in prenthisis)
+    {
+        if (ch == '[' || ch == '{' || ch == '(')
+        {
+            charsStack.Push(ch);
+        }
+        else if (ch == ']' || ch == '}' || ch == ')')
+        {
+            if (charsStack.Count() == 0)
+                return false;
+            else if (charsStack.Peek() == '{' && ch == '}')
+            {
+                charsStack.Pop();
+            }
+            else if (charsStack.Peek() == '[' && ch == ']')
+            {
+                charsStack.Pop();
+            }
+            else if (charsStack.Peek() == '(' && ch == ')')
+            {
+                charsStack.Pop();
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }
